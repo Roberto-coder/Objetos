@@ -1,6 +1,6 @@
 # Blender 3.6.5
 # www.blender.org
-mtllib mono.mtl
+mtllib chango.mtl
 o Suzanne
 v 0.437500 0.164062 0.765625
 v -0.437500 0.164062 0.765625

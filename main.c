@@ -21,7 +21,8 @@ mat4_t world_matrix;
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 10}; // Aleja el objeto para que sea visible
 float fov_factor = 720;
-vec2_t projected_points[N_CUBE_VERTICES];
+// Variables globales (remueve N_CUBE_VERTICES)
+vec2_t* projected_points = NULL;
 
 int main(int argc, char* argv[]) {
     // Inicializar la ventana SDL
@@ -54,7 +55,7 @@ void setup(void) {
     // Cargar datos del cubo directamente
     //load_cube_mesh_data();
     //
-    load_obj_file_data("../sphere.obj");
+    load_obj_file_data("../Objetos/chango.obj");
 }
 
 void process_input(void) {
@@ -79,6 +80,12 @@ void update(void) {
     world_matrix = mat4_mul_mat4(mat4_make_rotation_z(object_rotation.z), world_matrix);
     world_matrix = mat4_mul_mat4(mat4_make_translation(object_translation.x, object_translation.y, object_translation.z), world_matrix);
 
+    // Limpiar y asignar memoria para proyectar los vértices dinámicos
+    if (projected_points != NULL) {
+        free(projected_points);
+    }
+    projected_points = (vec2_t*)malloc(array_length(mesh.vertices) * sizeof(vec2_t));
+
     // Proyectar los vértices del objeto cargado
     for (int i = 0; i < array_length(mesh.vertices); i++) {
         vec3_t vertex = mesh.vertices[i];
@@ -87,12 +94,23 @@ void update(void) {
         projected_points[i] = project(projected_vertex, fov_factor);
     }
 }
+
+
 void render(void) {
-    draw_grid();
-    // Dibujar los triángulos del cubo
+    // Dibujar los triángulos del objeto cargado
     for (int i = 0; i < array_length(mesh.faces); i++) {
         face_t face = mesh.faces[i];
 
+        // Asegúrate de que los índices de las caras sean válidos
+        if (face.a <= 0 || face.b <= 0 || face.c <= 0 ||
+            face.a > array_length(mesh.vertices) ||
+            face.b > array_length(mesh.vertices) ||
+            face.c > array_length(mesh.vertices)) {
+            fprintf(stderr, "Invalid face index: (%d, %d, %d)\n", face.a, face.b, face.c);
+            continue;
+            }
+
+        // Ajuste para los índices base 1 de OBJ
         vec2_t point_a = projected_points[face.a - 1];
         vec2_t point_b = projected_points[face.b - 1];
         vec2_t point_c = projected_points[face.c - 1];
