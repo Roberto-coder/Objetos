@@ -8,6 +8,8 @@ mesh_t mesh = {
         .faces = NULL
 };
 
+uint32_t default_color = 0xFFFFFFFF;
+
 vec3_t cube_vertices[N_CUBE_VERTICES] = {
         { .x = -1, .y = -1, .z = -1 }, // 1
         { .x = -1, .y =  1, .z = -1 }, // 2
@@ -84,7 +86,8 @@ void load_obj_file_data(char* filename) {
             face_t face = {
                     .a = vertex_indices[0],
                     .b = vertex_indices[1],
-                    .c = vertex_indices[2]
+                    .c = vertex_indices[2],
+                    .color = default_color
             };
             array_push(mesh.faces, face);
             // Imprimir la cara cargada

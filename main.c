@@ -52,9 +52,9 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     // Cargar datos del cubo directamente
-    load_cube_mesh_data();
+    //load_cube_mesh_data();
     //
-    //load_obj_file_data("cubo.obj");
+    load_obj_file_data("../sphere.obj");
 }
 
 void process_input(void) {
@@ -88,6 +88,7 @@ void update(void) {
     }
 }
 void render(void) {
+    draw_grid();
     // Dibujar los triángulos del cubo
     for (int i = 0; i < array_length(mesh.faces); i++) {
         face_t face = mesh.faces[i];
