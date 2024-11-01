@@ -6,6 +6,8 @@
 #include "vector.h"
 #include "matrix.h"
 #include "array.h"
+#include "render.h"
+#include "transform.h"
 
 // Prototipo de funciones
 void setup(void);
@@ -16,13 +18,17 @@ void render(void);
 // Variables globales
 bool is_running = false;
 int previous_frame_time = 0;
+
+// Variables de control de visualización
+bool show_faces = true;
+bool show_edges = true;
+bool show_vertices = true;
+
 // Declarar la matriz de transformación globalmente
 mat4_t world_matrix;
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 10}; // Aleja el objeto para que sea visible
 float fov_factor = 720;
-// Variables globales (remueve N_CUBE_VERTICES)
-vec2_t* projected_points = NULL;
 
 int main(int argc, char* argv[]) {
     // Inicializar la ventana SDL
@@ -47,15 +53,17 @@ int main(int argc, char* argv[]) {
         previous_frame_time = SDL_GetTicks();
     }
 
+    // Liberar memoria asignada y destruir la ventana
+    if (projected_points != NULL) {
+        free(projected_points);
+    }
     destroy_window();
     return 0;
 }
 
 void setup(void) {
-    // Cargar datos del cubo directamente
-    //load_cube_mesh_data();
-    //
-    load_obj_file_data("../Objetos/chango.obj");
+    // Cargar un archivo OBJ específico
+    load_obj_file_data("../Objetos/objeto.obj");
 }
 
 void process_input(void) {
@@ -64,14 +72,19 @@ void process_input(void) {
         if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
             is_running = false;
         }
+        if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                case SDLK_f: show_faces = !show_faces; break;
+                case SDLK_l: show_edges = !show_edges; break;
+                case SDLK_v: show_vertices = !show_vertices; break;
+            }
+        }
     }
 }
 
 void update(void) {
-    // Incrementar la rotación del objeto
-    object_rotation.x += 0.01;
-    object_rotation.y += 0.01;
-    object_rotation.z += 0.01;
+    // Rotar el objeto
+    rotate_object(&object_rotation, 0.01, 0.01, 0.01);
 
     // Matrices de transformación
     world_matrix = mat4_identity();
@@ -95,34 +108,8 @@ void update(void) {
     }
 }
 
-
 void render(void) {
-    // Dibujar los triángulos del objeto cargado
-    for (int i = 0; i < array_length(mesh.faces); i++) {
-        face_t face = mesh.faces[i];
-
-        // Asegúrate de que los índices de las caras sean válidos
-        if (face.a <= 0 || face.b <= 0 || face.c <= 0 ||
-            face.a > array_length(mesh.vertices) ||
-            face.b > array_length(mesh.vertices) ||
-            face.c > array_length(mesh.vertices)) {
-            fprintf(stderr, "Invalid face index: (%d, %d, %d)\n", face.a, face.b, face.c);
-            continue;
-            }
-
-        // Ajuste para los índices base 1 de OBJ
-        vec2_t point_a = projected_points[face.a - 1];
-        vec2_t point_b = projected_points[face.b - 1];
-        vec2_t point_c = projected_points[face.c - 1];
-
-        draw_triangle(
-            point_a.x + window_width / 2, point_a.y + window_height / 2,
-            point_b.x + window_width / 2, point_b.y + window_height / 2,
-            point_c.x + window_width / 2, point_c.y + window_height / 2,
-            face.color
-        );
-    }
-
+    render_scene(show_faces, show_edges, show_vertices);
     // Actualizar el buffer y mostrar en pantalla
     render_color_buffer();
     clear_color_buffer(0xFF000000);  // Limpiar el buffer para el próximo frame

@@ -98,6 +98,20 @@ build CMakeFiles/Proyect1.dir/matrix.c.obj: C_COMPILER__Proyect1_unscanned_Debug
   OBJECT_DIR = CMakeFiles\Proyect1.dir
   OBJECT_FILE_DIR = CMakeFiles\Proyect1.dir
 
+build CMakeFiles/Proyect1.dir/render.c.obj: C_COMPILER__Proyect1_unscanned_Debug D$:/7mo/CompGraph/Proyect1/render.c || cmake_object_order_depends_target_Proyect1
+  DEP_FILE = CMakeFiles\Proyect1.dir\render.c.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -ID:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2
+  OBJECT_DIR = CMakeFiles\Proyect1.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyect1.dir
+
+build CMakeFiles/Proyect1.dir/transform.c.obj: C_COMPILER__Proyect1_unscanned_Debug D$:/7mo/CompGraph/Proyect1/transform.c || cmake_object_order_depends_target_Proyect1
+  DEP_FILE = CMakeFiles\Proyect1.dir\transform.c.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -ID:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2
+  OBJECT_DIR = CMakeFiles\Proyect1.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyect1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Proyect1
@@ -106,7 +120,7 @@ build CMakeFiles/Proyect1.dir/matrix.c.obj: C_COMPILER__Proyect1_unscanned_Debug
 #############################################
 # Link the executable Proyect1.exe
 
-build Proyect1.exe: C_EXECUTABLE_LINKER__Proyect1_Debug CMakeFiles/Proyect1.dir/main.c.obj CMakeFiles/Proyect1.dir/mesh.c.obj CMakeFiles/Proyect1.dir/triangle.c.obj CMakeFiles/Proyect1.dir/array.c.obj CMakeFiles/Proyect1.dir/vector.c.obj CMakeFiles/Proyect1.dir/display.c.obj CMakeFiles/Proyect1.dir/matrix.c.obj | D$:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2main.a D$:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2.dll.a
+build Proyect1.exe: C_EXECUTABLE_LINKER__Proyect1_Debug CMakeFiles/Proyect1.dir/main.c.obj CMakeFiles/Proyect1.dir/mesh.c.obj CMakeFiles/Proyect1.dir/triangle.c.obj CMakeFiles/Proyect1.dir/array.c.obj CMakeFiles/Proyect1.dir/vector.c.obj CMakeFiles/Proyect1.dir/display.c.obj CMakeFiles/Proyect1.dir/matrix.c.obj CMakeFiles/Proyect1.dir/render.c.obj CMakeFiles/Proyect1.dir/transform.c.obj | D$:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2main.a D$:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2.dll.a
   FLAGS = -g
   LINK_LIBRARIES = -lmingw32  -mwindows  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2main.a  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Proyect1.dir
