@@ -21,7 +21,8 @@ add_executable(Proyect1 main.c
         render.h
         render.c
         transform.c
-        transform.h)
+        transform.h
+        main.c)
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY})
 

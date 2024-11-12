@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     // Cargar un archivo OBJ específico
-    load_obj_file_data("../Objetos/cubo3.obj");
+    load_obj_file_data("../Objetos/dona.obj");
 }
 
 void process_input(void) {
