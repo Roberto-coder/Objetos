@@ -2,14 +2,15 @@
 #include "triangle.h"
 #include "render.h"
 
-// Draw a triangle using three raw line calls
+// Dibuja un triángulo utilizando tres llamadas a draw_line
 void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color) {
     draw_line(x0, y0, x1, y1, color);
     draw_line(x1, y1, x2, y2, color);
     draw_line(x2, y2, x0, y0, color);
 }
+
 void draw_filled_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t fill_color) {
-    // Ordenar los puntos para que y0 <= y1 <= y2
+    // Ordena los puntos para que y0 <= y1 <= y2
     if (y0 > y1) { int tmp_x = x0, tmp_y = y0; x0 = x1; y0 = y1; x1 = tmp_x; y1 = tmp_y; }
     if (y1 > y2) { int tmp_x = x1, tmp_y = y1; x1 = x2; y1 = y2; x2 = tmp_x; y2 = tmp_y; }
     if (y0 > y1) { int tmp_x = x0, tmp_y = y0; x0 = x1; y0 = y1; x1 = tmp_x; y1 = tmp_y; }
@@ -38,9 +39,9 @@ void draw_flat_bottom_triangle(int x0, int y0, int x1, int y1, int x2, int y2, u
     float cur_x2 = x0;
 
     for (int y = y0; y <= y2; y++) {
-        for (int x = (int)cur_x1; x <= (int)cur_x2; x++) {
-            draw_vertex(x, y, color);
-        }
+        // Dibuja la línea completa entre cur_x1 y cur_x2
+        draw_line((int)cur_x1, y, (int)cur_x2, y, color);
+
         cur_x1 += inv_slope_1;
         cur_x2 += inv_slope_2;
     }
@@ -54,9 +55,9 @@ void draw_flat_top_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint
     float cur_x2 = x2;
 
     for (int y = y2; y >= y0; y--) {
-        for (int x = (int)cur_x1; x <= (int)cur_x2; x++) {
-            draw_vertex(x, y, color);
-        }
+        // Dibuja la línea completa entre cur_x1 y cur_x2
+        draw_line((int)cur_x1, y, (int)cur_x2, y, color);
+
         cur_x1 -= inv_slope_1;
         cur_x2 -= inv_slope_2;
     }

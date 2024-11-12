@@ -1,4 +1,4 @@
-set(CMAKE_RC_COMPILER "D:/Archivos del programa/CLion 2024.2.1/bin/mingw/bin/windres.exe")
+set(CMAKE_RC_COMPILER "D:/Archivos del programa/CLion/CLion 2024.2.3/bin/mingw/bin/windres.exe")
 set(CMAKE_RC_COMPILER_ARG1 "")
 set(CMAKE_RC_COMPILER_LOADED 1)
 set(CMAKE_RC_SOURCE_FILE_EXTENSIONS rc;RC)
