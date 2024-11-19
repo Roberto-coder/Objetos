@@ -6,6 +6,7 @@
 #include "vector.h"
 #include "matrix.h"
 #include "array.h"
+#include "camera.h"
 #include "render.h"
 #include "transform.h"
 
@@ -24,11 +25,18 @@ bool show_faces = true;
 bool show_edges = true;
 bool show_vertices = true;
 
-// Declarar la matriz de transformación globalmente
+// Declarar matrices y transformaciones globales
 mat4_t world_matrix;
+mat4_t view_matrix; // Matriz de vista
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 10}; // Aleja el objeto para que sea visible
 float fov_factor = 720;
+vec3_t camera_position = {0, 0, -5}; // Posición inicial de la cámara
+
+// Declaración de puntos proyectados y vértices
+vec2_t* projected_points = NULL;
+vec3_t vertices[MAX_VERTICES]; // Arreglo de vértices, ahora definido de acuerdo con tu declaración global en triangle.h
+int vertex_count = 0;  // Contador de vértices
 
 int main(int argc, char* argv[]) {
     // Inicializar la ventana SDL
@@ -62,8 +70,17 @@ int main(int argc, char* argv[]) {
 }
 
 void setup(void) {
+    // Configurar la matriz de vista
+    view_matrix = mat4_make_look_at(camera_position, (vec3_t){0, 0, 0}, (vec3_t){0, 1, 0});
+
     // Cargar un archivo OBJ específico
-    load_obj_file_data("../Objetos/dona.obj");
+    load_obj_file_data("../Objetos/cubo3.obj");
+
+    // Asignar los vértices desde la malla cargada
+    vertex_count = array_length(mesh.vertices);  // Obtener el número de vértices de la malla
+    for (int i = 0; i < vertex_count; i++) {
+        vertices[i] = mesh.vertices[i];  // Copiar los vértices a la variable global
+    }
 }
 
 void process_input(void) {
@@ -97,19 +114,22 @@ void update(void) {
     if (projected_points != NULL) {
         free(projected_points);
     }
-    projected_points = (vec2_t*)malloc(array_length(mesh.vertices) * sizeof(vec2_t));
+    projected_points = (vec2_t*)malloc(vertex_count * sizeof(vec2_t));
 
     // Proyectar los vértices del objeto cargado
-    for (int i = 0; i < array_length(mesh.vertices); i++) {
-        vec3_t vertex = mesh.vertices[i];
-        vec4_t transformed_vertex = mat4_mul_vec4(world_matrix, vec4_from_vec3(vertex));
-        vec3_t projected_vertex = vec3_from_vec4(transformed_vertex);
-        projected_points[i] = project(projected_vertex, fov_factor);
+    for (int i = 0; i < vertex_count; i++) {
+        vec3_t vertex = vertices[i];
+
+        // Transformar el vértice al espacio de la cámara
+        vec3_t transformed_vertex = transform_vertices_to_camera_space(view_matrix, vertex);
+
+        // Proyectar los vértices al espacio 2D
+        projected_points[i] = project(transformed_vertex, fov_factor);
     }
 }
 
 void render(void) {
-    render_scene(show_faces, show_edges, show_vertices);
+    render_scene(show_faces, show_edges, show_vertices, camera_position, fov_factor, projected_points);
     // Actualizar el buffer y mostrar en pantalla
     render_color_buffer();
     clear_color_buffer(0xFF000000);  // Limpiar el buffer para el próximo frame
