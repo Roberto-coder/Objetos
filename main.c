@@ -84,7 +84,7 @@ void process_input(void) {
 
 void update(void) {
     // Rotar el objeto
-    rotate_object(&object_rotation, 0.01, 0.01, 0.01);
+    rotate_object(&object_rotation, 0.01, 0.00, 0.00);
 
     // Matrices de transformación
     world_matrix = mat4_identity();
