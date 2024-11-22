@@ -10,6 +10,7 @@ const uint32_t COLOR_ARISTAS = 0xFF00FF00;  // Verde para aristas
 const uint32_t COLOR_VERTICES = 0xFF0000FF; // Azul para vértices
 
 vec2_t* projected_points = NULL;
+face_t* sorted_faces = NULL;
 
 // Definir una estructura para la pila
 typedef enum { FACE, EDGE, VERTEX } render_type_t;
@@ -37,157 +38,69 @@ bool is_empty(stack_t* stack) {
     return stack->top == -1;
 }
 
+// Función para inicializar y renderizar la escena
 void render_scene(bool show_faces, bool show_edges, bool show_vertices) {
-    stack_t render_stack;
-    init_stack(&render_stack, 3);
+    // Crear y llenar una lista de triángulos con profundidad
+    int num_faces = array_length(mesh.faces);
+    triangle_t* triangles = malloc(sizeof(triangle_t) * num_faces);
 
-    // Chequear qué elementos se deben mostrar y añadirlos a la pila
+    for (int i = 0; i < num_faces; i++) {
+        face_t face = mesh.faces[i];
+        triangles[i].points[0] = projected_points[face.a - 1];
+        triangles[i].points[1] = projected_points[face.b - 1];
+        triangles[i].points[2] = projected_points[face.c - 1];
+        triangles[i].depth = calculate_triangle_depth(face);
+    }
+
+    // Ordenar triángulos por profundidad descendente
+    qsort(triangles, num_faces, sizeof(triangle_t), compare_triangles);
+
+    // Renderizar triángulos
     if (show_faces) {
-        push(&render_stack, FACE);
-    }
-    if (show_edges) {
-        push(&render_stack, EDGE);
-    }
-    if (show_vertices) {
-        push(&render_stack, VERTEX);
-    }
+        for (int i = 0; i < num_faces; i++) {
+            face_t face = mesh.faces[i];
+            triangle_t tri = triangles[i];
+            vec2_t point_a = tri.points[0];
+            vec2_t point_b = tri.points[1];
+            vec2_t point_c = tri.points[2];
 
-    // Si la pila está vacía, forzar que al menos un tipo esté activo
-    if (is_empty(&render_stack)) {
-        push(&render_stack, EDGE);  // Por ejemplo, aseguramos dibujar al menos aristas
-    }
-
-    // Renderizar elementos según lo que haya en la pila
-    for (int i = 0; i <= render_stack.top; i++) {
-        switch (render_stack.data[i]) {
-            case FACE:
-                for (int j = 0; j < array_length(mesh.faces); j++) {
-                    face_t face = mesh.faces[j];
-
-                    // Obtener los puntos proyectados
-                    vec3_t vertex_a = mesh.vertices[face.a - 1];
-                    vec3_t vertex_b = mesh.vertices[face.b - 1];
-                    vec3_t vertex_c = mesh.vertices[face.c - 1];
-
-                    // Calcular los vectores de la cara
-                    vec3_t vec_ab = vec3_sub(vertex_b, vertex_a);
-                    vec3_t vec_ac = vec3_sub(vertex_c, vertex_a);
-
-                    // Calcular la normal de la cara (producto cruz)
-                    vec3_t normal = vec3_cross(vec_ab, vec_ac);
-
-                    // Vector de vista (suponiendo cámara en el origen)
-                    vec3_t view_vector = vec3_sub(vertex_a, (vec3_t){0, 0, -5});
-
-                    // Verificar si la cara está orientada hacia la cámara
-                    if (vec3_dot(normal, view_vector) > 0) {
-                        // Proyectar los puntos
-                        vec2_t point_a = projected_points[face.a - 1];
-                        vec2_t point_b = projected_points[face.b - 1];
-                        vec2_t point_c = projected_points[face.c - 1];
-
-                        // Dibujar la cara
-                        draw_filled_triangle(
-                            point_a.x + window_width / 2, point_a.y + window_height / 2,
-                            point_b.x + window_width / 2, point_b.y + window_height / 2,
-                            point_c.x + window_width / 2, point_c.y + window_height / 2,
-                            COLOR_CARAS
-                        );
-                    }
-                }
-                break;
-
-            case EDGE:
-                for (int j = 0; j < array_length(mesh.faces); j++) {
-                    face_t face = mesh.faces[j];
-                    vec2_t point_a = projected_points[face.a - 1];
-                    vec2_t point_b = projected_points[face.b - 1];
-                    vec2_t point_c = projected_points[face.c - 1];
-                    draw_triangle(
-                        point_a.x + window_width / 2, point_a.y + window_height / 2,
-                        point_b.x + window_width / 2, point_b.y + window_height / 2,
-                        point_c.x + window_width / 2, point_c.y + window_height / 2,
-                        COLOR_ARISTAS
-                    );
-                }
-                break;
-
-            case VERTEX:
-                for (int j = 0; j < array_length(mesh.vertices); j++) {
-                    vec2_t point = projected_points[j];
-                    draw_vertex(point.x + window_width / 2, point.y + window_height / 2, COLOR_VERTICES);
-                }
-                break;
+            draw_filled_triangle(
+                point_a.x + window_width / 2, point_a.y + window_height / 2,
+                point_b.x + window_width / 2, point_b.y + window_height / 2,
+                point_c.x + window_width / 2, point_c.y + window_height / 2,
+                face.color
+            );
         }
     }
 
-    // Liberar memoria de la pila
-    free(render_stack.data);
-}
-/*void render_scene(bool show_faces, bool show_edges, bool show_vertices) {
-    stack_t render_stack;
-    init_stack(&render_stack, 3);
-
-    // Chequear qué elementos se deben mostrar y añadirlos a la pila
-    if (show_faces) {
-        push(&render_stack, FACE);
-    }
     if (show_edges) {
-        push(&render_stack, EDGE);
-    }
-    if (show_vertices) {
-        push(&render_stack, VERTEX);
-    }
+        for (int i = 0; i < num_faces; i++) {
+            face_t face = mesh.faces[i];
+            vec2_t point_a = projected_points[face.a - 1];
+            vec2_t point_b = projected_points[face.b - 1];
+            vec2_t point_c = projected_points[face.c - 1];
 
-    // Si la pila está vacía, forzar que al menos un tipo esté activo
-    if (is_empty(&render_stack)) {
-        push(&render_stack, EDGE);  // Por ejemplo, aseguramos dibujar al menos aristas
-    }
-
-    // Renderizar elementos según lo que haya en la pila
-    for (int i = 0; i <= render_stack.top; i++) {
-        switch (render_stack.data[i]) {
-            case FACE:
-                for (int j = 0; j < array_length(mesh.faces); j++) {
-                    face_t face = mesh.faces[j];
-                    vec2_t point_a = projected_points[face.a - 1];
-                    vec2_t point_b = projected_points[face.b - 1];
-                    vec2_t point_c = projected_points[face.c - 1];
-                    draw_filled_triangle(
-                        point_a.x + window_width / 2, point_a.y + window_height / 2,
-                        point_b.x + window_width / 2, point_b.y + window_height / 2,
-                        point_c.x + window_width / 2, point_c.y + window_height / 2,
-                        COLOR_CARAS
-                    );
-                }
-                break;
-            case EDGE:
-                for (int j = 0; j < array_length(mesh.faces); j++) {
-                    face_t face = mesh.faces[j];
-                    vec2_t point_a = projected_points[face.a - 1];
-                    vec2_t point_b = projected_points[face.b - 1];
-                    vec2_t point_c = projected_points[face.c - 1];
-                    draw_triangle(
-                        point_a.x + window_width / 2, point_a.y + window_height / 2,
-                        point_b.x + window_width / 2, point_b.y + window_height / 2,
-                        point_c.x + window_width / 2, point_c.y + window_height / 2,
-                        COLOR_ARISTAS
-                    );
-                }
-                break;
-            case VERTEX:
-                for (int j = 0; j < array_length(mesh.vertices); j++) {
-                    vec2_t point = projected_points[j];
-                    draw_vertex(point.x + window_width / 2, point.y + window_height / 2, COLOR_VERTICES);
-                }
-                break;
+            draw_triangle(
+                point_a.x + window_width / 2, point_a.y + window_height / 2,
+                point_b.x + window_width / 2, point_b.y + window_height / 2,
+                point_c.x + window_width / 2, point_c.y + window_height / 2,
+                COLOR_ARISTAS
+            );
         }
     }
 
-    // Liberar memoria de la pila
-    free(render_stack.data);
+    if (show_vertices) {
+        int num_vertices = array_length(mesh.vertices);
+        for (int i = 0; i < num_vertices; i++) {
+            vec2_t point = projected_points[i];
+            draw_vertex(point.x + window_width / 2, point.y + window_height / 2, COLOR_VERTICES);
+        }
+    }
+
+    // Liberar memoria
+    free(triangles);
 }
-*/
+
 void draw_vertex(int x, int y, uint32_t vertex_color) {
     int thickness = 2; // Grosor ajustable para el tamaño del vértice
     for (int offset_y = -thickness; offset_y <= thickness; offset_y++) {

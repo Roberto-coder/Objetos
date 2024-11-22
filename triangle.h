@@ -9,16 +9,22 @@ typedef struct {
     int a;
     int b;
     int c;
-    color_t color;
+    uint32_t color;
 } face_t;
 
 typedef struct {
     vec2_t points[3];
+    float depth;
 } triangle_t;
 
 void draw_filled_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t fill_color);
 void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color);
 void draw_flat_bottom_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color);
 void draw_flat_top_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color);
+
+float calculate_triangle_depth(face_t face);
+int compare_triangles(const void* a, const void* b);
+
+vec3_t calculate_normal(face_t face);
 
 #endif //INC_3DRENDERER_TRIANGLE_H

@@ -26,7 +26,7 @@ bool show_vertices = true;
 
 // Declarar la matriz de transformación globalmente
 mat4_t world_matrix;
-vec3_t object_rotation = {0, 0, 0};
+vec3_t object_rotation = {1, 2, 0};
 vec3_t object_translation = {0, 0, 10}; // Aleja el objeto para que sea visible
 float fov_factor = 720;
 
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     // Cargar un archivo OBJ específico
-    load_obj_file_data("../Objetos/dona.obj");
+    load_obj_file_data("../Objetos/cubo3.obj");
 }
 
 void process_input(void) {
@@ -84,7 +84,7 @@ void process_input(void) {
 
 void update(void) {
     // Rotar el objeto
-    rotate_object(&object_rotation, 0.01, 0.00, 0.00);
+    rotate_object(&object_rotation, 0.00, 0.00, 0.00);
 
     // Matrices de transformación
     world_matrix = mat4_identity();
