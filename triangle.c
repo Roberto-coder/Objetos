@@ -70,24 +70,24 @@ float calculate_triangle_depth(face_t face) {
 }
 
 // Función de comparación para ordenar triángulos por profundidad (descendente)
-int compare_triangles(const void* a, const void* b) {
+int compare_triangles_by_depth(const void* a, const void* b) {
     triangle_t* tri_a = (triangle_t*)a;
     triangle_t* tri_b = (triangle_t*)b;
     return (tri_b->depth > tri_a->depth) - (tri_b->depth < tri_a->depth);
 }
 
-vec3_t calculate_normal(face_t face) {
-    vec3_t v0 = mesh.vertices[face.a - 1];
-    vec3_t v1 = mesh.vertices[face.b - 1];
-    vec3_t v2 = mesh.vertices[face.c - 1];
-
-    vec3_t edge1 = { v1.x - v0.x, v1.y - v0.y, v1.z - v0.z };
-    vec3_t edge2 = { v2.x - v0.x, v2.y - v0.y, v2.z - v0.z };
-
-    vec3_t normal = {
-        .x = edge1.y * edge2.z - edge1.z * edge2.y,
-        .y = edge1.z * edge2.x - edge1.x * edge2.z,
-        .z = edge1.x * edge2.y - edge1.y * edge2.x
-    };
-    return normal; // Deberías normalizar si es necesario
+vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c) {
+    vec3_t ab = vec3_sub(a, b);
+    vec3_t ac = vec3_sub(a, c);
+    vec3_t normal = vec3_cross(ab, ac);
+    vec3_normalize(&normal); // Normaliza el vector utilizando el puntero
+    return normal;
 }
+
+
+bool is_face_visible(vec3_t normal, vec3_t camera_pos, vec3_t vertex) {
+    vec3_t view_vector = vec3_sub(camera_pos, vertex);
+    return vec3_dot(normal, view_vector) < 0;
+}
+
+

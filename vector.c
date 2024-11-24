@@ -1,7 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <math.h>
 #include "vector.h"
+
+#include "display.h"
+#include "matrix.h"
 
 // Vector 2D functions
 float vec2_length(vec2_t v){
@@ -108,18 +110,37 @@ vec3_t vec3_from_vec4(vec4_t v){
     return result;
 }
 
-vec2_t project(vec3_t point, float fov) {
-    vec2_t projected_point;
+// Proyecta un vértice 3D al espacio 2D utilizando el FOV y la relación de aspecto
+vec2_t project(vec3_t vertex, float fov_factor, float aspect_ratio) {
+    vec2_t projected_vertex;
 
-    // Proyección ortogonal simple: x' = (x * fov) / z, y' = (y * fov) / z
-    if (point.z != 0) {
-        projected_point.x = (point.x * fov) / point.z;
-        projected_point.y = (point.y * fov) / point.z;
+    if (vertex.z != 0) {
+        // Proyección en perspectiva
+        projected_vertex.x = (fov_factor * vertex.x / vertex.z) * aspect_ratio;
+        projected_vertex.y = (fov_factor * vertex.y / vertex.z);
     } else {
-        // Si z es cero, proyecta directamente al centro o ajusta el punto
-        projected_point.x = point.x * fov;
-        projected_point.y = point.y * fov;
+        // Evitar divisiones por 0
+        projected_vertex.x = 0;
+        projected_vertex.y = 0;
     }
 
-    return projected_point;
+    return projected_vertex;
 }
+
+
+
+// Multiplica una matriz 4x4 por un vector 4D
+/*vec4_t mat4_mul_vec4(mat4_t m, vec4_t v) {
+    vec4_t result;
+
+    result.x = m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z + m.m[0][3] * v.w;
+    result.y = m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z + m.m[1][3] * v.w;
+    result.z = m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z + m.m[2][3] * v.w;
+    result.w = m.m[3][0] * v.x + m.m[3][1] * v.y + m.m[3][2] * v.z + m.m[3][3] * v.w;
+
+    return result;
+}*/
+
+
+
+

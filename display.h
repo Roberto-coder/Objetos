@@ -1,7 +1,6 @@
 #ifndef INC_3DRENDERER_DISPLAY_H
 #define INC_3DRENDERER_DISPLAY_H
 
-#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <SDL.h>

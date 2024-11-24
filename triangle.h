@@ -23,8 +23,11 @@ void draw_flat_bottom_triangle(int x0, int y0, int x1, int y1, int x2, int y2, u
 void draw_flat_top_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color);
 
 float calculate_triangle_depth(face_t face);
-int compare_triangles(const void* a, const void* b);
+int compare_triangles_by_depth(const void* a, const void* b);
+bool is_face_visible(vec3_t normal, vec3_t camera_pos, vec3_t vertex);
 
-vec3_t calculate_normal(face_t face);
+
+vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c);
+
 
 #endif //INC_3DRENDERER_TRIANGLE_H

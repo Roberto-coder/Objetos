@@ -1,6 +1,9 @@
 #ifndef INC_3DRENDERER_VECTOR_H
 #define INC_3DRENDERER_VECTOR_H
 
+#include    "vector.h"
+#include "matrix.h"
+
 typedef struct {
     float x;
     float y;
@@ -26,7 +29,7 @@ vec2_t vec2_add(vec2_t a, vec2_t b);
 vec2_t vec2_sub(vec2_t a, vec2_t b);
 vec2_t vec2_mul(vec2_t v, float factor);
 vec2_t vec2_div(vec2_t v, float factor);
-vec2_t project(vec3_t v,float factor);
+vec2_t project(vec3_t vertex, float fov_factor, float aspect_ratio);
 void vec2_normalize(vec2_t* v);
 
 // Vector 3D functions
@@ -48,6 +51,7 @@ vec4_t vec4_from_vec3(vec3_t v);
 vec3_t vec3_from_vec4(vec4_t v);
 
 
+//vec4_t mat4_mul_vec4(mat4_t m, vec4_t v);
 
 
 
