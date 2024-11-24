@@ -1,7 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <math.h>
 #include "vector.h"
+
+#include "display.h"
+#include "matrix.h"
 
 // Vector 2D functions
 float vec2_length(vec2_t v){
@@ -110,18 +112,23 @@ vec3_t vec3_from_vec4(vec4_t v){
     return result;
 }
 
-vec2_t project(vec3_t point, float fov) {
-    vec2_t projected_point;
+// Proyecta un vértice 3D al espacio 2D utilizando el FOV y la relación de aspecto
+vec2_t project(vec3_t vertex, float fov_factor, float aspect_ratio) {
+    vec2_t projected_vertex;
 
-    // Proyección ortogonal simple: x' = (x * fov) / z, y' = (y * fov) / z
-    if (point.z != 0) {
-        projected_point.x = (point.x * fov) / point.z;
-        projected_point.y = (point.y * fov) / point.z;
+    if (vertex.z != 0) {
+        // Proyección en perspectiva
+        projected_vertex.x = (fov_factor * vertex.x / vertex.z) * aspect_ratio;
+        projected_vertex.y = (fov_factor * vertex.y / vertex.z);
     } else {
-        // Si z es cero, proyecta directamente al centro o ajusta el punto
-        projected_point.x = point.x * fov;
-        projected_point.y = point.y * fov;
+        // Evitar divisiones por 0
+        projected_vertex.x = 0;
+        projected_vertex.y = 0;
     }
 
-    return projected_point;
+    return projected_vertex;
 }
+
+
+
+

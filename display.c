@@ -3,6 +3,8 @@
 //
 #include "display.h"
 
+#include <stdio.h>
+
 // Declaración de las variables globales
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;

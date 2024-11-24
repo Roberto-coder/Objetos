@@ -1,5 +1,7 @@
 #include "display.h"
 #include "triangle.h"
+
+#include "mesh.h"
 #include "render.h"
 
 triangle_t triangles[MAX_TRIANGLES];  // Definición de la variable global
@@ -13,19 +15,15 @@ void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t colo
 }
 
 void draw_filled_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t fill_color) {
-    // Ordena los puntos para que y0 <= y1 <= y2
     if (y0 > y1) { int tmp_x = x0, tmp_y = y0; x0 = x1; y0 = y1; x1 = tmp_x; y1 = tmp_y; }
     if (y1 > y2) { int tmp_x = x1, tmp_y = y1; x1 = x2; y1 = y2; x2 = tmp_x; y2 = tmp_y; }
     if (y0 > y1) { int tmp_x = x0, tmp_y = y0; x0 = x1; y0 = y1; x1 = tmp_x; y1 = tmp_y; }
 
     if (y1 == y2) {
-        // Triángulo flat-bottom
         draw_flat_bottom_triangle(x0, y0, x1, y1, x2, y2, fill_color);
     } else if (y0 == y1) {
-        // Triángulo flat-top
         draw_flat_top_triangle(x0, y0, x1, y1, x2, y2, fill_color);
     } else {
-        // Triángulo general: se divide en dos, creando un punto de división
         int x4 = x0 + ((float)(y1 - y0) / (float)(y2 - y0)) * (x2 - x0);
         int y4 = y1;
 
@@ -65,3 +63,34 @@ void draw_flat_top_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint
         cur_x2 -= inv_slope_2;
     }
 }
+
+// Función para calcular la profundidad promedio de una cara
+float calculate_triangle_depth(face_t face) {
+    vec3_t vertex_a = mesh.vertices[face.a - 1];
+    vec3_t vertex_b = mesh.vertices[face.b - 1];
+    vec3_t vertex_c = mesh.vertices[face.c - 1];
+    return (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Promedio de profundidad
+}
+
+// Función de comparación para ordenar triángulos por profundidad (descendente)
+int compare_triangles_by_depth(const void* a, const void* b) {
+    triangle_t* tri_a = (triangle_t*)a;
+    triangle_t* tri_b = (triangle_t*)b;
+    return (tri_b->depth > tri_a->depth) - (tri_b->depth < tri_a->depth);
+}
+
+vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c) {
+    vec3_t ab = vec3_sub(a, b);
+    vec3_t ac = vec3_sub(a, c);
+    vec3_t normal = vec3_cross(ab, ac);
+    vec3_normalize(&normal); // Normaliza el vector utilizando el puntero
+    return normal;
+}
+
+
+bool is_face_visible(vec3_t normal, vec3_t camera_pos, vec3_t vertex) {
+    vec3_t view_vector = vec3_sub(camera_pos, vertex);
+    return vec3_dot(normal, view_vector) < 0;
+}
+
+

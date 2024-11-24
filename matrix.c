@@ -1,8 +1,7 @@
 
 #include <math.h>
-#include "matrix.h"
 #include "vector.h"
-
+#include "matrix.h"
 
 // Crea una matriz identidad 4x4
 mat4_t mat4_identity(void) {
@@ -90,18 +89,6 @@ mat4_t mat4_make_rotation_z(float angle) {
     return result;
 }
 
-// Multiplica una matriz 4x4 por un vector 4D
-vec4_t mat4_mul_vec4(mat4_t m, vec4_t v) {
-    vec4_t result;
-
-    result.x = m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z + m.m[0][3] * v.w;
-    result.y = m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z + m.m[1][3] * v.w;
-    result.z = m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z + m.m[2][3] * v.w;
-    result.w = m.m[3][0] * v.x + m.m[3][1] * v.y + m.m[3][2] * v.z + m.m[3][3] * v.w;
-
-    return result;
-}
-
 // Multiplica dos matrices 4x4
 mat4_t mat4_mul_mat4(mat4_t a, mat4_t b) {
     mat4_t result = {0};
@@ -117,30 +104,5 @@ mat4_t mat4_mul_mat4(mat4_t a, mat4_t b) {
 
     return result;
 }
-
-// Multiplica un vector 3D por una matriz 4x4
-vec3_t mat4_mul_vec3(mat4_t mat, vec3_t v) {
-    vec3_t result;
-
-    // Suponiendo que v es un vec3, lo extendemos a un vec4 con w = 1.0 para realizar la multiplicación homogénea
-    float x = mat.m[0][0] * v.x + mat.m[0][1] * v.y + mat.m[0][2] * v.z + mat.m[0][3] * 1.0f;
-    float y = mat.m[1][0] * v.x + mat.m[1][1] * v.y + mat.m[1][2] * v.z + mat.m[1][3] * 1.0f;
-    float z = mat.m[2][0] * v.x + mat.m[2][1] * v.y + mat.m[2][2] * v.z + mat.m[2][3] * 1.0f;
-    float w = mat.m[3][0] * v.x + mat.m[3][1] * v.y + mat.m[3][2] * v.z + mat.m[3][3] * 1.0f;
-
-    // Convertimos de vec4 a vec3 dividiendo por w para ajustar coordenadas homogéneas
-    if (w != 0.0f) {
-        result.x = x / w;
-        result.y = y / w;
-        result.z = z / w;
-    } else {
-        result.x = x;
-        result.y = y;
-        result.z = z;
-    }
-
-    return result;
-}
-
 
 
