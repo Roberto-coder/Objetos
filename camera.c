@@ -4,46 +4,43 @@
 #include "camera.h"
 #include <math.h>
 
-// Crear una cámara con posición, objetivo y vector arriba
+camera_t camera_create(vec3_t position, vec3_t target, vec3_t up) {
+    camera_t camera;
+    camera.position = position;
+    camera.target = target;
+    camera.up = up;
+    return camera;
+}
 
+
+mat4_t camera_get_view_matrix(camera_t camera) {
+    return mat4_make_look_at(camera.position, camera.target, camera.up);
+}
 
 mat4_t mat4_make_look_at(vec3_t eye, vec3_t center, vec3_t up) {
-    // Dirección hacia el objetivo
-    vec3_t f = vec3_sub(center, eye);
-    vec3_normalize(&f);  // Normalizar el vector f
+    // Declarar los vectores a normalizar
+    vec3_t forward = vec3_sub(center, eye);
+    vec3_t right = vec3_cross(up, forward);
 
-    // Eje derecho (producto cruzado de up y f)
-    vec3_t r = vec3_cross(up, f);
-    vec3_normalize(&r);  // Normalizar el vector r
+    // Normalizar los vectores
+    vec3_normalize(&forward);
+    vec3_normalize(&right);
 
-    // Eje "arriba" real (producto cruzado de f y r)
-    vec3_t u = vec3_cross(f, r);
-    vec3_normalize(&u);  // Normalizar el vector u
+    // Calcular el vector "up" real
+    vec3_t true_up = vec3_cross(forward, right);
 
-    // Crear la matriz de vista 4x4
-    mat4_t view_matrix = {0};
+    // Construir la matriz de rotación
+    mat4_t rotation = {{
+        {right.x, true_up.x, forward.x, 0},
+        {right.y, true_up.y, forward.y, 0},
+        {right.z, true_up.z, forward.z, 0},
+        {0, 0, 0, 1}
+    }};
 
-    // Llenamos la matriz de vista
-    view_matrix.m[0][0] = r.x;
-    view_matrix.m[1][0] = r.y;
-    view_matrix.m[2][0] = r.z;
-    view_matrix.m[3][0] = -vec3_dot(r, eye);  // Producto punto de r y eye
+    // Construir la matriz de traslación
+    mat4_t translation = mat4_make_translation(-eye.x, -eye.y, -eye.z);
 
-    view_matrix.m[0][1] = u.x;
-    view_matrix.m[1][1] = u.y;
-    view_matrix.m[2][1] = u.z;
-    view_matrix.m[3][1] = -vec3_dot(u, eye);  // Producto punto de u y eye
-
-    view_matrix.m[0][2] = -f.x;
-    view_matrix.m[1][2] = -f.y;
-    view_matrix.m[2][2] = -f.z;
-    view_matrix.m[3][2] = vec3_dot(f, eye);  // Producto punto de f y eye
-
-    view_matrix.m[0][3] = 0.0f;
-    view_matrix.m[1][3] = 0.0f;
-    view_matrix.m[2][3] = 0.0f;
-    view_matrix.m[3][3] = 1.0f;
-
-    return view_matrix;
+    // Combinar rotación y traslación
+    return mat4_mul_mat4(rotation, translation);
 }
 

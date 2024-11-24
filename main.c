@@ -31,7 +31,7 @@ mat4_t view_matrix; // Matriz de vista
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 10}; // Aleja el objeto para que sea visible
 float fov_factor = 720;
-vec3_t camera_position = {0, 0, -5}; // Posición inicial de la cámara
+camera_t camera;
 
 // Declaración de puntos proyectados y vértices
 vec2_t* projected_points = NULL;
@@ -39,21 +39,31 @@ vec3_t vertices[MAX_VERTICES]; // Arreglo de vértices, ahora definido de acuerd
 int vertex_count = 0;  // Contador de vértices
 
 int main(int argc, char* argv[]) {
-    // Inicializar la ventana SDL
+    // Initialize SDL window
     if (!(is_running = initialize_window())) {
         return -1;
     }
 
-    // Configurar el entorno de renderizado
+    // Allocate memory for projected_points
+    projected_points = (vec2_t*)malloc(MAX_TRIANGLES * 3 * sizeof(vec2_t));
+    // Ensure allocation was successful
+    if (projected_points == NULL) {
+        // Handle memory allocation failure
+        fprintf(stderr, "Failed to allocate memory for projected_points\n");
+        destroy_window();
+        return -1;
+    }
+
+    // Set up the rendering environment
     setup();
 
-    // Bucle principal
+    // Main loop
     while (is_running) {
         process_input();
         update();
         render();
 
-        // Controlar el tiempo por frame
+        // Frame timing control
         int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - previous_frame_time);
         if (time_to_wait > 0 && time_to_wait <= FRAME_TARGET_TIME) {
             SDL_Delay(time_to_wait);
@@ -61,7 +71,7 @@ int main(int argc, char* argv[]) {
         previous_frame_time = SDL_GetTicks();
     }
 
-    // Liberar memoria asignada y destruir la ventana
+    // Free allocated memory and destroy SDL window
     if (projected_points != NULL) {
         free(projected_points);
     }
@@ -70,18 +80,24 @@ int main(int argc, char* argv[]) {
 }
 
 void setup(void) {
-    // Configurar la matriz de vista
-    view_matrix = mat4_make_look_at(camera_position, (vec3_t){0, 0, 0}, (vec3_t){0, 1, 0});
+    // Inicializar la cámara con posición, objetivo y vector hacia arriba
+    camera = camera_create(
+    (vec3_t){0, 0, 0},  // Posición inicial de la cámara
+    (vec3_t){0, 0, 0},   // Cambiar el objetivo al origen
+    (vec3_t){0, 1, 0}    // Vector hacia arriba
+);
 
-    // Cargar un archivo OBJ específico
+
+    // Cargar el archivo OBJ
     load_obj_file_data("../Objetos/cubo3.obj");
 
     // Asignar los vértices desde la malla cargada
-    vertex_count = array_length(mesh.vertices);  // Obtener el número de vértices de la malla
+    vertex_count = array_length(mesh.vertices);
     for (int i = 0; i < vertex_count; i++) {
-        vertices[i] = mesh.vertices[i];  // Copiar los vértices a la variable global
+        vertices[i] = mesh.vertices[i];
     }
 }
+
 
 void process_input(void) {
     SDL_Event event;
@@ -100,36 +116,34 @@ void process_input(void) {
 }
 
 void update(void) {
-    // Rotar el objeto
-    rotate_object(&object_rotation, 0.01, 0.01, 0.01);
+    // Actualizar la matriz de vista con base en la cámara
+    mat4_t view_matrix = camera_get_view_matrix(camera);
 
-    // Matrices de transformación
-    world_matrix = mat4_identity();
-    world_matrix = mat4_mul_mat4(mat4_make_rotation_x(object_rotation.x), world_matrix);
-    world_matrix = mat4_mul_mat4(mat4_make_rotation_y(object_rotation.y), world_matrix);
-    world_matrix = mat4_mul_mat4(mat4_make_rotation_z(object_rotation.z), world_matrix);
-    world_matrix = mat4_mul_mat4(mat4_make_translation(object_translation.x, object_translation.y, object_translation.z), world_matrix);
-
-    // Limpiar y asignar memoria para proyectar los vértices dinámicos
+    // Transformar y proyectar los vértices
     if (projected_points != NULL) {
         free(projected_points);
     }
     projected_points = (vec2_t*)malloc(vertex_count * sizeof(vec2_t));
 
-    // Proyectar los vértices del objeto cargado
     for (int i = 0; i < vertex_count; i++) {
-        vec3_t vertex = vertices[i];
-
-        // Transformar el vértice al espacio de la cámara
-        vec3_t transformed_vertex = transform_vertices_to_camera_space(view_matrix, vertex);
-
-        // Proyectar los vértices al espacio 2D
+        vec3_t transformed_vertex = transform_vertices_to_camera_space(view_matrix, vertices[i]);
         projected_points[i] = project(transformed_vertex, fov_factor);
     }
 }
 
+// Función para imprimir una matriz 4x4
+void print_matrix(mat4_t matrix) {
+    printf("Matriz 4x4:\n");
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            printf("%8.3f ", matrix.m[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void render(void) {
-    render_scene(show_faces, show_edges, show_vertices, camera_position, fov_factor, projected_points);
+    render_scene(show_faces, show_edges, show_vertices, camera, fov_factor, projected_points);
     // Actualizar el buffer y mostrar en pantalla
     render_color_buffer();
     clear_color_buffer(0xFF000000);  // Limpiar el buffer para el próximo frame

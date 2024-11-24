@@ -21,5 +21,6 @@ extern mesh_t mesh;
 
 void load_cube_mesh_data(void);
 void load_obj_file_data(char* filename);
+uint32_t generate_random_color();
 
 #endif //INC_3DRENDERER_MESH_H

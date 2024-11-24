@@ -7,6 +7,7 @@
 #include "render.h"
 #include "geometry.h"
 #include "camera.h"
+#include "display.h"
 
 // Colores para los elementos
 const uint32_t COLOR_CARAS = 0xFFFF0000;    // Rojo para caras
@@ -40,98 +41,70 @@ bool is_empty(stack_t* stack) {
 }
 
 // Renderizar la escena con las opciones activadas
-void render_scene(bool show_faces, bool show_edges, bool show_vertices, vec3_t camera_position, float fov_factor, vec2_t* projected_points) {
-    // Calcular la matriz de vista
-    mat4_t view_matrix = mat4_make_look_at(camera_position, (vec3_t){0, 0, 0}, (vec3_t){0, 1, 0});
+#include "camera.h"
 
-    vec3_t transformed_vertices[MAX_VERTICES];
-    for (int i = 0; i < vertex_count; i++) {
-        transformed_vertices[i] = transform_vertices_to_camera_space(view_matrix, vertices[i]);
+void render_scene(bool show_faces, bool show_edges, bool show_vertices, camera_t camera, float fov_factor, vec2_t* projected_points) {
+    if (projected_points == NULL) {
+        fprintf(stderr, "Error: projected_points es nulo en render_scene\n");
+        return;
     }
 
-    // Filtrar triángulos visibles
-    triangle_t visible_triangles[MAX_TRIANGLES];
-    int visible_triangle_count = 0;
-
-    for (int i = 0; i < triangle_count; i++) {
-        triangle_t* tri = &triangles[i];
-
-        // Transformar los vértices al espacio de la cámara
-        // Transformar cada vértice individualmente
-        tri->vertices[0] = transform_vertices_to_camera_space(view_matrix, tri->vertices[0]);
-        tri->vertices[1] = transform_vertices_to_camera_space(view_matrix, tri->vertices[1]);
-        tri->vertices[2] = transform_vertices_to_camera_space(view_matrix, tri->vertices[2]);
-
-
-        // Verificar visibilidad
-        if (is_visible(tri->vertices[0], tri->vertices[1], tri->vertices[2], camera_position)) {
-            // Calcular profundidad
-            tri->depth = calculate_triangle_depth(tri->vertices[0], tri->vertices[1], tri->vertices[2]);
-
-            visible_triangles[visible_triangle_count++] = *tri;
-        }
+    // Renderizar las caras, bordes y vértices según las banderas
+    if (show_faces) {
+        render_faces(projected_points);
     }
-
-    // Ordenar triángulos por profundidad
-    sort_triangles_by_depth(visible_triangles, visible_triangle_count);
-
-    // Dibujar según configuración
-    for (int i = 0; i < visible_triangle_count; i++) {
-        triangle_t tri = visible_triangles[i];
-        vec2_t projected_points[3];
-
-        for (int j = 0; j < 3; j++) {
-            vec3_t vertex_in_camera_space = transform_vertices_to_camera_space(view_matrix, tri.vertices[j]);
-            projected_points[j] = project(vertex_in_camera_space, fov_factor);
-        }
-
-        if (show_faces) {
-            draw_filled_triangle(
-                projected_points[0].x + window_width / 2, projected_points[0].y + window_height / 2,
-                projected_points[1].x + window_width / 2, projected_points[1].y + window_height / 2,
-                projected_points[2].x + window_width / 2, projected_points[2].y + window_height / 2,
-                COLOR_CARAS
-            );
-        }
-
-        if (show_edges) {
-            draw_triangle(
-                projected_points[0].x + window_width / 2, projected_points[0].y + window_height / 2,
-                projected_points[1].x + window_width / 2, projected_points[1].y + window_height / 2,
-                projected_points[2].x + window_width / 2, projected_points[2].y + window_height / 2,
-                COLOR_ARISTAS
-            );
-        }
-
-        if (show_vertices) {
-            for (int j = 0; j < 3; j++) {
-                draw_vertex(
-                    projected_points[j].x + window_width / 2, projected_points[j].y + window_height / 2,
-                    COLOR_VERTICES
-                );
-            }
-        }
+    if (show_edges) {
+        render_edges(projected_points);
+    }
+    if (show_vertices) {
+        render_vertices(projected_points);
     }
 }
 
-// Dibujar un vértice
-void draw_vertex(int x, int y, uint32_t vertex_color) {
-    int thickness = 2; // Grosor del vértice
-    for (int offset_y = -thickness; offset_y <= thickness; offset_y++) {
-        for (int offset_x = -thickness; offset_x <= thickness; offset_x++) {
-            int draw_x = x + offset_x;
-            int draw_y = y + offset_y;
 
-            if (draw_x >= 0 && draw_x < window_width && draw_y >= 0 && draw_y < window_height) {
-                color_buffer[(window_width * draw_y) + draw_x] = vertex_color;
-            }
-        }
+void render_faces(vec2_t* projected_points) {
+    for (int i = 0; i < array_length(mesh.faces); i++) {
+        face_t face = mesh.faces[i];
+
+        vec2_t points[3] = {
+            projected_points[face.a],
+            projected_points[face.b],
+            projected_points[face.c]
+        };
+
+        // Usar la función para rellenar triángulos
+        draw_filled_triangle(
+            points[0].x, points[0].y,
+            points[1].x, points[1].y,
+            points[2].x, points[2].y,
+            face.color // Color asociado al triángulo
+        );
     }
 }
 
-// Dibujar un punto
-void draw_point(int x, int y, uint32_t point_color) {
-    if (x >= 0 && x < window_width && y >= 0 && y < window_height) {
-        color_buffer[(window_width * y) + x] = point_color;
+void render_edges(vec2_t* projected_points) {
+    for (int i = 0; i < array_length(mesh.faces); i++) {
+        face_t face = mesh.faces[i];
+
+        vec2_t points[3] = {
+            projected_points[face.a],
+            projected_points[face.b],
+            projected_points[face.c]
+        };
+
+        // Dibujar las líneas de los bordes del triángulo
+        draw_line(points[0].x, points[0].y, points[1].x, points[1].y, 0xFF0000FF); // Color azul
+        draw_line(points[1].x, points[1].y, points[2].x, points[2].y, 0xFF0000FF);
+        draw_line(points[2].x, points[2].y, points[0].x, points[0].y, 0xFF0000FF);
     }
 }
+
+void render_vertices(vec2_t* projected_points) {
+    for (int i = 0; i < array_length(mesh.vertices); i++) {
+        vec2_t point = projected_points[i];
+
+        // Dibujar un punto en la posición proyectada
+        draw_pixel(point.x, point.y, 0xFFFF00); // Color amarillo
+    }
+}
+
