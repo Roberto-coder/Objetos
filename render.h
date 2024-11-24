@@ -20,6 +20,7 @@
 // Declarar la variable global
 extern vec2_t* projected_points;
 
+<<<<<<< Updated upstream
 // Número actual de vértices procesados
 extern int vertex_count;
 
@@ -35,6 +36,9 @@ void draw_point(int x, int y, uint32_t point_color);
 void render_faces(vec2_t* projected_points);
 void render_edges(vec2_t* projected_points);
 void render_vertices(vec2_t* projected_points);
+=======
+void render_scene(vec3_t camera_pos, float fov_factor, bool show_faces, bool show_edges, bool show_vertices, int max_faces);
+>>>>>>> Stashed changes
 
 
 #endif //RENDER_H

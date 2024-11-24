@@ -16,7 +16,12 @@ typedef struct {
     int a;
     int b;
     int c;
+<<<<<<< Updated upstream
     color_t color;
+=======
+    uint32_t color;
+    float depth;
+>>>>>>> Stashed changes
 } face_t;
 
 // Estructura para un triángulo en 3D
