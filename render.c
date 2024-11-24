@@ -23,38 +23,50 @@ void render_scene(vec3_t camera_pos, float fov, bool show_faces, bool show_edges
     for (int i = 0; i < array_length(mesh.faces); i++) {
         face_t face = mesh.faces[i];
 
-        // Usar la función transformada que retorna vec2_t
-        vec2_t vertex_a = transform_vertex(mesh.vertices[face.a - 1], world_matrix, camera_pos, aspect_ratio, fov);
-        vec2_t vertex_b = transform_vertex(mesh.vertices[face.b - 1], world_matrix, camera_pos, aspect_ratio, fov);
-        vec2_t vertex_c = transform_vertex(mesh.vertices[face.c - 1], world_matrix, camera_pos, aspect_ratio, fov);
+        vec3_t vertex_a = mesh.vertices[face.a - 1];
+        vec3_t vertex_b = mesh.vertices[face.b - 1];
+        vec3_t vertex_c = mesh.vertices[face.c - 1];
 
-        // Determinar si la cara es visible: usa el cálculo de normal directamente en vec2 si es necesario.
-        // Opcionalmente, ajusta lógica de normal si aún necesitas un vec3_t intermedio.
-        // OMITIDO AQUÍ: La lógica para verificar visibilidad necesitaría un ajuste adicional.
+        // Calculate the normal of the face
+        vec3_t normal = calculate_normal(vertex_a, vertex_b, vertex_c);
 
-        float face_depth = (mesh.vertices[face.a - 1].z +
-                            mesh.vertices[face.b - 1].z +
-                            mesh.vertices[face.c - 1].z) / 3.0f;
+        // Calculate the vector from the camera to the vertex of the face
+        vec3_t camera_ray = vec3_sub(vertex_a, camera_pos);
 
-        triangle_t triangle = {
-            .points = {vertex_a, vertex_b, vertex_c},
-            .depth = face_depth
-        };
+        // Perform backface culling
+        if (vec3_dot(normal, camera_ray) < 0) {
+            // Transform the vertices
+            vec2_t projected_a = transform_vertex(vertex_a, world_matrix, camera_pos, aspect_ratio, fov);
+            vec2_t projected_b = transform_vertex(vertex_b, world_matrix, camera_pos, aspect_ratio, fov);
+            vec2_t projected_c = transform_vertex(vertex_c, world_matrix, camera_pos, aspect_ratio, fov);
 
-        array_push(visible_triangles, triangle);
+            printf("Projected A: (%f, %f)\n", projected_a.x, projected_a.y);
+            printf("Projected B: (%f, %f)\n", projected_b.x, projected_b.y);
+            printf("Projected C: (%f, %f)\n", projected_c.x, projected_c.y);
+
+            float face_depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f;
+
+            triangle_t triangle = {
+                .points = {projected_a, projected_b, projected_c},
+                .depth = face_depth
+            };
+
+            array_push(visible_triangles, triangle);
+        }
     }
 
-    // Ordenar los triángulos por profundidad
+    // Sort the triangles by depth
     qsort(visible_triangles, array_length(visible_triangles), sizeof(triangle_t), compare_triangles_by_depth);
 
-    // Dibujar triángulos visibles
+    // Draw visible triangles
     for (int i = 0; i < array_length(visible_triangles); i++) {
         triangle_t triangle = visible_triangles[i];
+        face_t face = mesh.faces[i];
         draw_filled_triangle(
             triangle.points[0].x, triangle.points[0].y,
             triangle.points[1].x, triangle.points[1].y,
             triangle.points[2].x, triangle.points[2].y,
-            COLOR_CARAS
+            face.color
         );
     }
 }

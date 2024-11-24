@@ -22,14 +22,22 @@ bool show_faces = true;
 bool show_edges = true;
 bool show_vertices = true;
 
-
 vec3_t object_rotation = {0, 0, 0};
-vec3_t object_translation = {0, 0, 10};
-vec3_t camera_position = {0, 0, -200};
+vec3_t object_translation = {5, 5, 5}; // Ajuste de la traslación para que el objeto esté más cerca de la cámara
+vec3_t camera_position = {0, 0, -5}; // Ajuste de la posición de la cámara
 
-float fov_factor = 720; // Factor de proyección
+// Definición de world_matrix
+mat4_t world_matrix = {
+    .m = {
+        {1.0, 0.0, 0.0, 0.0},
+        {0.0, 1.0, 0.0, 0.0},
+        {0.0, 0.0, 1.0, 0.0},
+        {0.0, 0.0, 0.0, 1.0}
+    }
+};
+
+float fov_factor = 720; // Ajuste del factor de proyección
 float aspect_ratio = 16.0f / 9.0f; // Relación de aspecto de la ventana
-//float aspect_ratio = (float)window_width / (float)window_height;
 
 int main(int argc, char* argv[]) {
     // Inicializar SDL y ventana
