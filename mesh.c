@@ -2,23 +2,39 @@
 #include <string.h>
 #include "array.h"
 #include "mesh.h"
-#include <time.h>
+#include <stdlib.h>
+#include <stdint.h>
 
 mesh_t mesh = {
         .vertices = NULL,
         .faces = NULL
 };
 
-// Color por defecto (puedes ignorarlo si se generan colores dinámicos)
-uint32_t default_color = 0xFFFFFFFF;
+// Array of predefined colors
+uint32_t predefined_colors[6] = {
+    0xFFF5B041, // Naranja
+    0xFFCD5C5C, // IndianRed
+    0xFFF08080, // LightCoral
+    0xFFFA8072, // Salmon
+    0xFFE9967A, // DarkSalmon
+    0xFFFFA07A  // LightSalmon
+};
 
+// Generate a color from the predefined array
+uint32_t generate_random_color() {
+    static int color_index = 0;
+    uint32_t color = predefined_colors[color_index];
+    color_index = (color_index + 1) % 6; // Cycle through the colors
+    return color;
+}
+/*
 // Generar un color aleatorio
 uint32_t generate_random_color() {
     uint8_t r = rand() % 256;
     uint8_t g = rand() % 256;
     uint8_t b = rand() % 256;
     return (r << 24) | (g << 16) | (b << 8) | 0xFF; // Formato RGBA
-}
+}*/
 
 vec3_t cube_vertices[N_CUBE_VERTICES] = {
         { .x = -1, .y = -1, .z = -1 }, // 1

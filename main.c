@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <SDL.h>
+#include <time.h>
+
 #include "display.h"
 #include "mesh.h"
 #include "vector.h"
@@ -69,7 +71,8 @@ int main(int argc, char* argv[]) {
 }
 
 void setup(void) {
-    load_obj_file_data("../Objetos/dona.obj"); // Cargar modelo OBJ
+    srand(time(NULL)); // Inicializa la semilla para generar colores aleatorios
+    load_obj_file_data("../Objetos/icosphere.obj"); // Cargar modelo OBJ
 }
 
 void process_input(void) {
