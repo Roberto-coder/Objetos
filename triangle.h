@@ -10,6 +10,7 @@ typedef struct {
     int b;
     int c;
     uint32_t color;
+    float depth;
 } face_t;
 
 typedef struct {

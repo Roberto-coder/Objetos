@@ -21,9 +21,10 @@ int previous_frame_time = 0;
 bool show_faces = true;
 bool show_edges = true;
 bool show_vertices = true;
+bool back_face_culling = true;
 
 vec3_t object_rotation = {0, 0, 0};
-vec3_t object_translation = {5, 5, 5}; // Ajuste de la traslación para que el objeto esté más cerca de la cámara
+vec3_t object_translation = {0, 0, 0}; // Ajuste de la traslación para que el objeto esté más cerca de la cámara
 vec3_t camera_position = {0, 0, -5}; // Ajuste de la posición de la cámara
 
 // Definición de world_matrix
@@ -51,6 +52,7 @@ int main(int argc, char* argv[]) {
     while (is_running) {
         process_input();
         update();
+        calculate_visible_faces(camera_position, fov_factor, back_face_culling); // Recalcular las caras visibles
         render();
 
         int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - previous_frame_time);
@@ -81,10 +83,14 @@ void process_input(void) {
                 case SDLK_f: show_faces = !show_faces; break;
                 case SDLK_l: show_edges = !show_edges; break;
                 case SDLK_v: show_vertices = !show_vertices; break;
+                case SDLK_c: back_face_culling = !back_face_culling; break; // Alternar el culling
                 case SDLK_w: object_translation.z += 1; break;
                 case SDLK_s: object_translation.z -= 1; break;
-                case SDLK_UP: camera_position.z += 1; break;
-                case SDLK_DOWN: camera_position.z -= 1; break;
+                case SDLK_LEFT: camera_position.x += 1; break;
+                case SDLK_RIGHT: camera_position.x -= 1; break;
+                case SDLK_UP: camera_position.y += 1; break;
+                case SDLK_DOWN: camera_position.y -= 1; break;
+
             }
         }
     }
@@ -100,10 +106,13 @@ void update(void) {
     world_matrix = mat4_mul_mat4(mat4_make_rotation_y(object_rotation.y), world_matrix);
     world_matrix = mat4_mul_mat4(mat4_make_rotation_z(object_rotation.z), world_matrix);
     world_matrix = mat4_mul_mat4(mat4_make_translation(object_translation.x, object_translation.y, object_translation.z), world_matrix);
+
+    // Recalcular las caras visibles
+    calculate_visible_faces(camera_position, fov_factor, back_face_culling);
 }
 
 void render(void) {
-    render_scene(camera_position, fov_factor, show_faces, show_edges, show_vertices);
+    render_scene(show_faces, show_edges, show_vertices);
     render_color_buffer();
     clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);

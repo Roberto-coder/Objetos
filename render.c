@@ -12,7 +12,7 @@ const uint32_t COLOR_VERTICES = 0xFF0000FF; // Azul para vértices
 vec2_t* projected_points = NULL;
 triangle_t* visible_triangles = NULL;
 
-void render_scene(vec3_t camera_pos, float fov, bool show_faces, bool show_edges, bool show_vertices) {
+void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_culling) {
     float aspect_ratio = (float)window_width / (float)window_height;
 
     if (visible_triangles != NULL) {
@@ -30,25 +30,18 @@ void render_scene(vec3_t camera_pos, float fov, bool show_faces, bool show_edges
         // Calculate the normal of the face
         vec3_t normal = calculate_normal(vertex_a, vertex_b, vertex_c);
 
-        // Calculate the vector from the camera to the vertex of the face
-        vec3_t camera_ray = vec3_sub(vertex_a, camera_pos);
-
-        // Perform backface culling
-        if (vec3_dot(normal, camera_ray) < 0) {
+        // Check if the face is visible
+        if (!back_face_culling || is_face_visible(normal, camera_pos, vertex_a)) {
             // Transform the vertices
             vec2_t projected_a = transform_vertex(vertex_a, world_matrix, camera_pos, aspect_ratio, fov);
             vec2_t projected_b = transform_vertex(vertex_b, world_matrix, camera_pos, aspect_ratio, fov);
             vec2_t projected_c = transform_vertex(vertex_c, world_matrix, camera_pos, aspect_ratio, fov);
 
-            printf("Projected A: (%f, %f)\n", projected_a.x, projected_a.y);
-            printf("Projected B: (%f, %f)\n", projected_b.x, projected_b.y);
-            printf("Projected C: (%f, %f)\n", projected_c.x, projected_c.y);
-
-            float face_depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f;
+            face.depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Calculate depth
 
             triangle_t triangle = {
                 .points = {projected_a, projected_b, projected_c},
-                .depth = face_depth
+                .depth = face.depth
             };
 
             array_push(visible_triangles, triangle);
@@ -57,7 +50,8 @@ void render_scene(vec3_t camera_pos, float fov, bool show_faces, bool show_edges
 
     // Sort the triangles by depth
     qsort(visible_triangles, array_length(visible_triangles), sizeof(triangle_t), compare_triangles_by_depth);
-
+}
+void render_scene(bool show_faces, bool show_edges, bool show_vertices) {
     // Draw visible triangles
     for (int i = 0; i < array_length(visible_triangles); i++) {
         triangle_t triangle = visible_triangles[i];
@@ -70,3 +64,4 @@ void render_scene(vec3_t camera_pos, float fov, bool show_faces, bool show_edges
         );
     }
 }
+
