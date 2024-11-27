@@ -29,7 +29,8 @@ vec2_t vec2_add(vec2_t a, vec2_t b);
 vec2_t vec2_sub(vec2_t a, vec2_t b);
 vec2_t vec2_mul(vec2_t v, float factor);
 vec2_t vec2_div(vec2_t v, float factor);
-vec2_t project(vec3_t vertex, float fov_factor, float aspect_ratio);
+//vec2_t project(vec3_t vertex, float fov_factor, float aspect_ratio);
+vec2_t project(vec3_t vertex, mat4_t world_matrix, mat4_t view_matrix, float aspect_ratio, float fov_factor);
 void vec2_normalize(vec2_t* v);
 
 // Vector 3D functions

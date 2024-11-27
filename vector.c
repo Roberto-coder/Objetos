@@ -4,6 +4,7 @@
 
 #include "display.h"
 #include "matrix.h"
+#include "transform.h"
 
 // Vector 2D functions
 float vec2_length(vec2_t v){
@@ -111,13 +112,35 @@ vec3_t vec3_from_vec4(vec4_t v){
 }
 
 // Proyecta un vértice 3D al espacio 2D utilizando el FOV y la relación de aspecto
-vec2_t project(vec3_t vertex, float fov_factor, float aspect_ratio) {
+/*vec2_t project(vec3_t vertex, float fov_factor, float aspect_ratio) {
     vec2_t projected_vertex;
 
     if (vertex.z != 0) {
         // Proyección en perspectiva
         projected_vertex.x = (fov_factor * vertex.x / vertex.z) * aspect_ratio;
         projected_vertex.y = (fov_factor * vertex.y / vertex.z);
+    } else {
+        // Evitar divisiones por 0
+        projected_vertex.x = 0;
+        projected_vertex.y = 0;
+    }
+
+    return projected_vertex;
+}*/
+
+vec2_t project(vec3_t vertex, mat4_t world_matrix, mat4_t view_matrix, float aspect_ratio, float fov_factor) {
+    // Transformar el vértice al espacio del mundo
+    vec3_t transformed_vertex = mat4_mul_vec3(world_matrix, vertex);
+
+    // Transformar a espacio de cámara usando la matriz de vista
+    vec3_t camera_vertex = mat4_mul_vec3(view_matrix, transformed_vertex);
+
+    vec2_t projected_vertex;
+
+    if (camera_vertex.z != 0) {
+        // Proyección en perspectiva
+        projected_vertex.x = (fov_factor * camera_vertex.x / camera_vertex.z) * aspect_ratio;
+        projected_vertex.y = (fov_factor * camera_vertex.y / camera_vertex.z);
     } else {
         // Evitar divisiones por 0
         projected_vertex.x = 0;

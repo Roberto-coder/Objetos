@@ -25,6 +25,7 @@ void draw_flat_top_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint
 
 float calculate_triangle_depth(face_t face);
 int compare_triangles_by_depth(const void* a, const void* b);
+int compare_triangles_by_depth_asc(const void* a, const void* b);
 bool is_face_visible(vec3_t normal, vec3_t camera_pos, vec3_t vertex);
 
 

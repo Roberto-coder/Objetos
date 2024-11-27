@@ -76,6 +76,13 @@ int compare_triangles_by_depth(const void* a, const void* b) {
     return (tri_b->depth > tri_a->depth) - (tri_b->depth < tri_a->depth);
 }
 
+// Function to compare triangles by depth (ascending)
+int compare_triangles_by_depth_asc(const void* a, const void* b) {
+    triangle_t* tri_a = (triangle_t*)a;
+    triangle_t* tri_b = (triangle_t*)b;
+    return (tri_a->depth > tri_b->depth) - (tri_a->depth < tri_b->depth);
+}
+
 vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c) {
     vec3_t ab = vec3_sub(a, b);
     vec3_t ac = vec3_sub(a, c);

@@ -32,10 +32,10 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
 
         // Check if the face is visible
         if (!back_face_culling || is_face_visible(normal, camera_pos, vertex_a)) {
-            // Transform the vertices
-            vec2_t projected_a = transform_vertex(vertex_a, world_matrix, camera_pos, aspect_ratio, fov);
-            vec2_t projected_b = transform_vertex(vertex_b, world_matrix, camera_pos, aspect_ratio, fov);
-            vec2_t projected_c = transform_vertex(vertex_c, world_matrix, camera_pos, aspect_ratio, fov);
+            // Project the vertices
+            vec2_t projected_a = project(vertex_a, world_matrix, view_matrix, aspect_ratio, fov);
+            vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov);
+            vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov);
 
             face.depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Calculate depth
 
@@ -51,6 +51,7 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
     // Sort the triangles by depth
     qsort(visible_triangles, array_length(visible_triangles), sizeof(triangle_t), compare_triangles_by_depth);
 }
+
 void render_scene(bool show_faces, bool show_edges, bool show_vertices) {
     // Draw visible triangles
     for (int i = 0; i < array_length(visible_triangles); i++) {
