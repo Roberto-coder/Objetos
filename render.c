@@ -10,10 +10,16 @@ const uint32_t COLOR_ARISTAS = 0xFF00FF00;  // Verde para aristas
 const uint32_t COLOR_VERTICES = 0xFF0000FF; // Azul para vértices
 
 vec2_t* projected_points = NULL;
+triangle_t* all_triangles = NULL;
 triangle_t* visible_triangles = NULL;
 
 void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_culling) {
     float aspect_ratio = (float)window_width / (float)window_height;
+
+    if (all_triangles != NULL) {
+        array_free(all_triangles);
+    }
+    all_triangles = NULL;
 
     if (visible_triangles != NULL) {
         array_free(visible_triangles);
@@ -30,32 +36,39 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
         // Calculate the normal of the face
         vec3_t normal = calculate_normal(vertex_a, vertex_b, vertex_c);
 
+        // Project the vertices
+        vec2_t projected_a = project(vertex_a, world_matrix, view_matrix, aspect_ratio, fov);
+        vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov);
+        vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov);
+
+        face.depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Calculate depth
+
+        triangle_t triangle = {
+            .points = {projected_a, projected_b, projected_c},
+            .depth = face.depth
+        };
+
+        array_push(all_triangles, triangle);
+
         // Check if the face is visible
         if (!back_face_culling || is_face_visible(normal, camera_pos, vertex_a)) {
-            // Project the vertices
-            vec2_t projected_a = project(vertex_a, world_matrix, view_matrix, aspect_ratio, fov);
-            vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov);
-            vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov);
-
-            face.depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Calculate depth
-
-            triangle_t triangle = {
-                .points = {projected_a, projected_b, projected_c},
-                .depth = face.depth
-            };
-
             array_push(visible_triangles, triangle);
         }
     }
 
-    // Sort the triangles by depth
+    // Sort all triangles by depth
+    qsort(all_triangles, array_length(all_triangles), sizeof(triangle_t), compare_triangles_by_depth);
+
+    // Sort visible triangles by depth
     qsort(visible_triangles, array_length(visible_triangles), sizeof(triangle_t), compare_triangles_by_depth);
 }
 
-void render_scene(bool show_faces, bool show_edges, bool show_vertices) {
-    // Draw visible triangles
-    for (int i = 0; i < array_length(visible_triangles); i++) {
-        triangle_t triangle = visible_triangles[i];
+void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool back_face_culling) {
+    triangle_t* triangles_to_render = back_face_culling ? visible_triangles : all_triangles;
+
+    // Draw triangles
+    for (int i = 0; i < array_length(triangles_to_render); i++) {
+        triangle_t triangle = triangles_to_render[i];
         face_t face = mesh.faces[i];
         draw_filled_triangle(
             triangle.points[0].x, triangle.points[0].y,
@@ -65,4 +78,3 @@ void render_scene(bool show_faces, bool show_edges, bool show_vertices) {
         );
     }
 }
-

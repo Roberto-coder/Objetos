@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include <stdbool.h>
 #include <SDL.h>
-#include <time.h>
-
+#include <stdbool.h>
+#include <GL/gl.h> // Include OpenGL header
+#include <time.h>  // Include time.h for the time function
 #include "display.h"
 #include "mesh.h"
 #include "vector.h"
@@ -42,6 +41,12 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
+    // Enable Z-buffer
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
     setup();
 
     // Main loop
@@ -66,7 +71,7 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     srand(time(NULL)); // Initialize seed for generating random colors
-    load_obj_file_data("../Objetos/cubo3.obj"); // Load OBJ model
+    load_obj_file_data("../Objetos/icosphere.obj"); // Load OBJ model
     // Assign identity matrix to view_matrix and world_matrix
     view_matrix = mat4_identity();
     world_matrix = mat4_identity();
@@ -119,7 +124,10 @@ void update(void) {
 }
 
 void render(void) {
-    render_scene(show_faces, show_edges, show_vertices);
+    // Clear the color and depth buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    render_scene(show_faces, show_edges, show_vertices, back_face_culling);
     render_color_buffer();
     clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);
