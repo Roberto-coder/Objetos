@@ -23,14 +23,17 @@ bool show_faces = true;
 bool show_edges = true;
 bool show_vertices = true;
 bool back_face_culling = true;
+bool apply_shading = true;
 
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 0}; // Adjust translation to bring the object closer to the camera
-vec3_t camera_position = {-5, -5, -10}; // Adjust camera position
+vec3_t camera_position = {0, 0, -5}; // Adjust camera position
 vec3_t camera_rotation = {0, 0, 0}; // Camera rotation
 
 float fov_factor = 360; // Adjust projection factor
-float aspect_ratio = 16.0f / 9.0f; // Window aspect ratio
+//float aspect_ratio = 16.0f / 9.0f; // Window aspect ratio
+float aspect_ratio;
+
 
 mat4_t view_matrix; // Define view_matrix
 mat4_t world_matrix; // Define world_matrix
@@ -71,10 +74,12 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     srand(time(NULL)); // Initialize seed for generating random colors
-    load_obj_file_data("../Objetos/icosphere.obj"); // Load OBJ model
+    load_obj_file_data("../Objetos/dona.obj"); // Load OBJ model
     // Assign identity matrix to view_matrix and world_matrix
     view_matrix = mat4_identity();
     world_matrix = mat4_identity();
+
+    float aspect_ratio = (float)window_width / (float)window_height;
 }
 
 void process_input(void) {
@@ -86,16 +91,15 @@ void process_input(void) {
         if (event.type == SDL_KEYDOWN) {
             switch (event.key.keysym.sym) {
                 case SDLK_c: back_face_culling = !back_face_culling; break; // Toggle culling
-                case SDLK_w: object_translation.z += 1; break;
-                case SDLK_s: object_translation.z -= 1; break;
+                case SDLK_s: apply_shading = !apply_shading; break; // Toggle shading
                 case SDLK_LEFT: camera_position.x += 1; break;
                 case SDLK_RIGHT: camera_position.x -= 1; break;
                 case SDLK_UP: camera_position.y += 1; break;
                 case SDLK_DOWN: camera_position.y -= 1; break;
-                case SDLK_q: camera_rotation.y -= 0.1; break; // Rotar cámara a la izquierda
-                case SDLK_e: camera_rotation.y += 0.1; break; // Rotar cámara a la derecha
-                case SDLK_r: camera_rotation.x -= 0.1; break; // Rotar cámara hacia arriba
-                case SDLK_f: camera_rotation.x += 0.1; break; // Rotar cámara hacia abajo
+                case SDLK_q: camera_rotation.y -= 0.1; break; // Rotate camera left
+                case SDLK_e: camera_rotation.y += 0.1; break; // Rotate camera right
+                case SDLK_r: camera_rotation.x -= 0.1; break; // Rotate camera up
+                case SDLK_f: camera_rotation.x += 0.1; break; // Rotate camera down
             }
         }
     }
@@ -103,7 +107,7 @@ void process_input(void) {
 
 void update(void) {
     // Apply rotations
-    rotate_object(&object_rotation, 0.01, 0.00, 0.00);
+    rotate_object(&object_rotation, 0.01, 0.01, 0.01);
 
     // Create object transformation matrix
     world_matrix = mat4_identity();

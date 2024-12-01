@@ -12,12 +12,12 @@ mesh_t mesh = {
 
 // Array of predefined colors
 uint32_t predefined_colors[6] = {
-    0xFFF5B041, // Naranja
-    0xFFCD5C5C, // IndianRed
-    0xFFF08080, // LightCoral
-    0xFFFA8072, // Salmon
-    0xFFE9967A, // DarkSalmon
-    0xFFFFA07A  // LightSalmon
+    0xFFFFFFFF,
+    0xFFFFFFFF, 
+    0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF
 };
 
 // Generate a color from the predefined array
@@ -113,8 +113,8 @@ void load_obj_file_data(char* filename) {
             face_t face = {
                 .a = vertex_indices[0],
                 .b = vertex_indices[1],
-                .c = vertex_indices[2],
-                .color = generate_random_color() // Asignar un color aleatorio
+                .c = vertex_indices[2]
+                //.color = generate_random_color() // Asignar un color aleatorio
             };
 
             array_push(mesh.faces, face);
