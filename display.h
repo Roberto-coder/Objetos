@@ -8,6 +8,9 @@
 #define FPS 30
 #define FRAME_TARGET_TIME (1000 / FPS) // 1000 miliseconds (1 seg) between the FPS = time take every frame
 
+extern int window_width ;
+extern int window_height ;
+
 // Declare a new type definition to hold 32-bit colors value
 typedef uint32_t color_t;
 

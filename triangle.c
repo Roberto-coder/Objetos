@@ -62,18 +62,27 @@ void draw_flat_top_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint
 }
 
 // Función para calcular la profundidad promedio de una cara
-float calculate_triangle_depth(face_t face) {
+/*float calculate_triangle_depth(face_t face) {
     vec3_t vertex_a = mesh.vertices[face.a - 1];
     vec3_t vertex_b = mesh.vertices[face.b - 1];
     vec3_t vertex_c = mesh.vertices[face.c - 1];
     return (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Promedio de profundidad
-}
+}*/
 
 // Función de comparación para ordenar triángulos por profundidad (descendente)
 int compare_triangles_by_depth(const void* a, const void* b) {
     triangle_t* tri_a = (triangle_t*)a;
     triangle_t* tri_b = (triangle_t*)b;
     return (tri_b->depth > tri_a->depth) - (tri_b->depth < tri_a->depth);
+}
+
+
+// Function to calculate the average depth of a triangle
+float calculate_triangle_depth(face_t face) {
+    vec3_t vertex_a = mesh.vertices[face.a - 1];
+    vec3_t vertex_b = mesh.vertices[face.b - 1];
+    vec3_t vertex_c = mesh.vertices[face.c - 1];
+    return (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Average depth
 }
 
 vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c) {
@@ -84,10 +93,19 @@ vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c) {
     return normal;
 }
 
-
-bool is_face_visible(vec3_t normal, vec3_t camera_pos, vec3_t vertex) {
-    vec3_t view_vector = vec3_sub(camera_pos, vertex);
-    return vec3_dot(normal, view_vector) < 0;
+// Function to calculate the centroid of a triangle
+vec3_t calculate_centroid(vec3_t vertex_a, vec3_t vertex_b, vec3_t vertex_c) {
+    vec3_t centroid;
+    centroid.x = (vertex_a.x + vertex_b.x + vertex_c.x) / 3.0f;
+    centroid.y = (vertex_a.y + vertex_b.y + vertex_c.y) / 3.0f;
+    centroid.z = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f;
+    return centroid;
 }
 
+
+bool is_face_visible(vec3_t normal, vec3_t camera_pos, vec3_t vertex_a) {
+    vec3_t view_vector = vec3_sub(camera_pos, vertex_a);
+    float dot_product = vec3_dot(normal, view_vector);
+    return dot_product < 0; // Visible si el producto escalar es negativo
+}
 
