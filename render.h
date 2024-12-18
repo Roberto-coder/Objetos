@@ -8,7 +8,6 @@
 
 // Declare the global variables
 extern vec2_t* projected_points;
-extern triangle_t* visible_triangles;
 extern mat4_t view_matrix;
 extern mat4_t world_matrix; // Add this line
 

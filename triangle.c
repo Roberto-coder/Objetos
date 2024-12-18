@@ -61,26 +61,18 @@ void draw_flat_top_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint
     }
 }
 
-// Función para calcular la profundidad promedio de una cara
-float calculate_triangle_depth(face_t face) {
-    vec3_t vertex_a = mesh.vertices[face.a - 1];
-    vec3_t vertex_b = mesh.vertices[face.b - 1];
-    vec3_t vertex_c = mesh.vertices[face.c - 1];
-    return (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Promedio de profundidad
+// Función de comparación para ordenar caras por profundidad (descendente)
+int compare_faces_by_depth(const void* a, const void* b) {
+    face_t* face_a = (face_t*)a;
+    face_t* face_b = (face_t*)b;
+    return (face_b->depth > face_a->depth) - (face_b->depth < face_a->depth);
 }
 
-// Función de comparación para ordenar triángulos por profundidad (descendente)
-int compare_triangles_by_depth(const void* a, const void* b) {
-    triangle_t* tri_a = (triangle_t*)a;
-    triangle_t* tri_b = (triangle_t*)b;
-    return (tri_b->depth > tri_a->depth) - (tri_b->depth < tri_a->depth);
-}
-
-// Function to compare triangles by depth (ascending)
-int compare_triangles_by_depth_asc(const void* a, const void* b) {
-    triangle_t* tri_a = (triangle_t*)a;
-    triangle_t* tri_b = (triangle_t*)b;
-    return (tri_a->depth > tri_b->depth) - (tri_a->depth < tri_b->depth);
+// Función de comparación para ordenar caras por profundidad (ascendente)
+int compare_faces_by_depth_asc(const void* a, const void* b) {
+    face_t* face_a = (face_t*)a;
+    face_t* face_b = (face_t*)b;
+    return (face_a->depth > face_b->depth) - (face_a->depth < face_b->depth);
 }
 
 vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c) {

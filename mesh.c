@@ -22,20 +22,20 @@ uint32_t predefined_colors[6] = {
 };
 
 // Generate a color from the predefined array
-uint32_t generate_random_color() {
+/*uint32_t generate_random_color() {
     static int color_index = 0;
     uint32_t color = predefined_colors[color_index];
     color_index = (color_index + 1) % 6; // Cycle through the colors
     return color;
-}
-/*
+}*/
+
 // Generar un color aleatorio
 uint32_t generate_random_color() {
     uint8_t r = rand() % 256;
     uint8_t g = rand() % 256;
     uint8_t b = rand() % 256;
     return (r << 24) | (g << 16) | (b << 8) | 0xFF; // Formato RGBA
-}*/
+}
 
 
 void load_obj_file_data(char* filename) {

@@ -3,6 +3,7 @@
 #include "vector.h"
 #include "array.h"
 #include "transform.h"
+#include "triangle.h"
 
 // Colores de los elementos
 const uint32_t COLOR_CARAS = 0xFFFF0000;    // Rojo para caras
@@ -40,11 +41,6 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
         // Calculate the normal of the face
         vec3_t normal = calculate_normal(vertex_a, vertex_b, vertex_c);
 
-        // Project the vertices
-        vec2_t projected_a = project(vertex_a, world_matrix, view_matrix, aspect_ratio, fov);
-        vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov);
-        vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov);
-
         face.depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Calculate depth
 
         // Check if the face is visible
@@ -54,7 +50,7 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
     }
 
     // Sort visible faces by depth
-    qsort(visible_faces, array_length(visible_faces), sizeof(face_t), compare_triangles_by_depth);
+    qsort(visible_faces, array_length(visible_faces), sizeof(face_t), compare_faces_by_depth);
 }
 
 void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool back_face_culling, float aspect_ratio, float fov_factor) {

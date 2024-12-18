@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     srand(time(NULL)); // Initialize seed for generating random colors
-    load_obj_file_data("../Objetos/cubo3.obj"); // Load OBJ model
+    load_obj_file_data("../Objetos/icosphere.obj"); // Load OBJ model
     // Assign identity matrix to view_matrix and world_matrix
     view_matrix = mat4_identity();
     world_matrix = mat4_identity();
