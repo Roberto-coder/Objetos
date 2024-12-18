@@ -22,7 +22,7 @@ bool show_faces = true;
 bool show_edges = true;
 bool show_vertices = true;
 bool show_normals = false;
-bool backface_culling_enabled = true;
+bool backface_culling_enabled = true; // Define here
 
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 0};
@@ -61,8 +61,11 @@ void setup(void) {
     view_matrix = mat4_identity();
     projection_matrix = mat4_make_perspective(M_PI / 3, aspect_ratio, 0.1f, 100.0f);
 
+    // Inicializar la posición del objeto en el eje -z
+    object_translation.z = -7.0f;
+
     // Cargar datos del archivo .obj
-    load_obj_file_data("../Objetos/cubo3.obj");
+    load_obj_file_data("../Objetos/chango.obj");
 }
 
 void process_input(void) {
@@ -82,12 +85,6 @@ void process_input(void) {
                         break;
                     case SDLK_s:
                         object_translation.z -= 0.1f;
-                        break;
-                    case SDLK_LEFT:
-                        object_rotation.y -= 0.1f;
-                        break;
-                    case SDLK_RIGHT:
-                        object_rotation.y += 0.1f;
                         break;
                     case SDLK_f:
                         show_faces = !show_faces;
@@ -109,7 +106,7 @@ void process_input(void) {
 
 void update(void) {
     // Aplicar rotaciones con incrementos menores
-    rotate_object(&object_rotation, 0.001, 0.001, 0.001);
+    rotate_object(&object_rotation, 0.01, 0.01, 0.01);
 
     // Crear matriz de transformación
     world_matrix = mat4_identity();
@@ -122,11 +119,11 @@ void update(void) {
     view_matrix = mat4_look_at(camera_position, (vec3_t){0, 0, 0}, (vec3_t){0, 1, 0});
 
     // Calcular las caras visibles
-    calculate_visible_faces(camera_position, fov_factor);
+    calculate_visible_faces(camera_position, fov_factor, backface_culling_enabled);
 }
 
 void render(void) {
-    render_scene(show_faces, show_edges, show_vertices, backface_culling_enabled);
+    render_scene(show_faces, show_edges, show_vertices, backface_culling_enabled, aspect_ratio, fov_factor, camera_position);
     render_color_buffer();
     clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);

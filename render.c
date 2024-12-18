@@ -1,96 +1,96 @@
 #include "render.h"
-#include <stdio.h>
 #include "mesh.h"
 #include "vector.h"
 #include "array.h"
 #include "transform.h"
-#define MAX_DEPTH 1000.0f
+#include "triangle.h"
 
-// Colors for elements
-const uint32_t COLOR_CARAS = 0xFFFF0000;    // Red for faces
-const uint32_t COLOR_ARISTAS = 0xFF00FF00;  // Green for edges
-const uint32_t COLOR_VERTICES = 0xFF0000FF; // Blue for vertices
+// Colores de los elementos
+const uint32_t COLOR_CARAS = 0xFFFF0000;    // Rojo para caras
+const uint32_t COLOR_ARISTAS = 0xFF00FF00;  // Verde para aristas
+const uint32_t COLOR_VERTICES = 0xFF0000FF; // Azul para vértices
 
 vec2_t* projected_points = NULL;
-triangle_t* visible_triangles = NULL;
+face_t* visible_faces = NULL;
 
-// Function to calculate visible faces and sort them by depth
-void calculate_visible_faces(vec3_t camera_pos, float fov) {
+void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_culling) {
+    float aspect_ratio = (float)window_width / (float)window_height;
 
-    if (visible_triangles != NULL) {
-        array_free(visible_triangles);
+    if (visible_faces != NULL) {
+        array_free(visible_faces);
     }
-    visible_triangles = NULL;
+    visible_faces = NULL;
 
     for (int i = 0; i < array_length(mesh.faces); i++) {
         face_t face = mesh.faces[i];
 
-        vec3_t vertex_a = mat4_mul_vec3(world_matrix, mesh.vertices[face.a - 1]);
-        vec3_t vertex_b = mat4_mul_vec3(world_matrix, mesh.vertices[face.b - 1]);
-        vec3_t vertex_c = mat4_mul_vec3(world_matrix, mesh.vertices[face.c - 1]);
+        vec3_t vertex_a = mesh.vertices[face.a - 1];
+        vec3_t vertex_b = mesh.vertices[face.b - 1];
+        vec3_t vertex_c = mesh.vertices[face.c - 1];
+
+        // Transform vertices using the world matrix
+        vertex_a = mat4_mul_vec3(world_matrix, vertex_a);
+        vertex_b = mat4_mul_vec3(world_matrix, vertex_b);
+        vertex_c = mat4_mul_vec3(world_matrix, vertex_c);
+
+        // Transform vertices using the view matrix
+        vertex_a = mat4_mul_vec3(view_matrix, vertex_a);
+        vertex_b = mat4_mul_vec3(view_matrix, vertex_b);
+        vertex_c = mat4_mul_vec3(view_matrix, vertex_c);
 
         // Calculate the normal of the face
         vec3_t normal = calculate_normal(vertex_a, vertex_b, vertex_c);
 
-        // Determine if the face is visible from the camera position
-        if (is_face_visible(normal, camera_pos, vertex_a)) {
-            // Calculate the depth of the triangle
-            float depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f;
+        face.depth = (vertex_a.z + vertex_b.z + vertex_c.z) / 3.0f; // Calculate depth
 
-            vec2_t projected_a = project(vertex_a, world_matrix, view_matrix, aspect_ratio, fov);
-            vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov);
-            vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov);
-
-            triangle_t triangle = {
-                .points = {projected_a, projected_b, projected_c},
-                .depth = depth,
-                .color = face.color, // Use the color from the face
-                .normal = normal // Assign the normal
-            };
-
-            array_push(visible_triangles, triangle);
+        // Check if the face is visible
+        if (!back_face_culling || is_face_visible(normal, camera_pos, vertex_a)) {
+            array_push(visible_faces, face);
         }
     }
 
-    // Sort the visible triangles by depth
-    qsort(visible_triangles, array_length(visible_triangles), sizeof(triangle_t), compare_triangles_by_depth);
-
-    // Print the sorted depths for debugging
-    /*printf("Sorted triangle depths:\n");
-    for (int i = 0; i < array_length(visible_triangles); i++) {
-        printf("Triangle %d depth: %f\n", i, visible_triangles[i].depth);
-    }*/
+    // Sort visible faces by depth
+    qsort(visible_faces, array_length(visible_faces), sizeof(face_t), compare_faces_by_depth);
 }
 
-// Function to render the scene
-void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool backface_culling_enabled) {
-    for (int i = 0; i < array_length(visible_triangles); i++) {
-        triangle_t triangle = visible_triangles[i];
+void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool back_face_culling, float aspect_ratio, float fov_factor, vec3_t camera_position) {
+    calculate_visible_faces(camera_position, fov_factor, back_face_culling);
+    face_t* faces_to_render = visible_faces;
+
+    // Draw faces
+    for (int i = 0; i < array_length(faces_to_render); i++) {
+        face_t face = faces_to_render[i];
+
+        vec3_t vertex_a = mesh.vertices[face.a - 1];
+        vec3_t vertex_b = mesh.vertices[face.b - 1];
+        vec3_t vertex_c = mesh.vertices[face.c - 1];
+
+        vec2_t projected_a = project(vertex_a, world_matrix, view_matrix, aspect_ratio, fov_factor);
+        vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov_factor);
+        vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov_factor);
 
         if (show_faces) {
             draw_filled_triangle(
-                triangle.points[0].x, triangle.points[0].y,
-                triangle.points[1].x, triangle.points[1].y,
-                triangle.points[2].x, triangle.points[2].y,
-                triangle.color // Use the color of the face
+                projected_a.x, projected_a.y,
+                projected_b.x, projected_b.y,
+                projected_c.x, projected_c.y,
+                face.color
             );
         }
 
         if (show_edges) {
             draw_triangle(
-                triangle.points[0].x, triangle.points[0].y,
-                triangle.points[1].x, triangle.points[1].y,
-                triangle.points[2].x, triangle.points[2].y,
+                projected_a.x, projected_a.y,
+                projected_b.x, projected_b.y,
+                projected_c.x, projected_c.y,
                 COLOR_ARISTAS
             );
         }
 
         if (show_vertices) {
-            draw_pixel(triangle.points[0].x, triangle.points[0].y, COLOR_VERTICES);
-            draw_pixel(triangle.points[1].x, triangle.points[1].y, COLOR_VERTICES);
-            draw_pixel(triangle.points[2].x, triangle.points[2].y, COLOR_VERTICES);
+            draw_pixel(projected_a.x, projected_a.y, COLOR_VERTICES);
+            draw_pixel(projected_b.x, projected_b.y, COLOR_VERTICES);
+            draw_pixel(projected_c.x, projected_c.y, COLOR_VERTICES);
         }
-
-
     }
 }
