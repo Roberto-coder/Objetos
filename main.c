@@ -53,7 +53,6 @@ int main(int argc, char* argv[]) {
     while (is_running) {
         process_input();
         update();
-        calculate_visible_faces(camera_position, fov_factor, back_face_culling); // Recalculate visible faces
         render();
 
         int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - previous_frame_time);
@@ -71,7 +70,7 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     srand(time(NULL)); // Initialize seed for generating random colors
-    load_obj_file_data("../Objetos/icosphere.obj"); // Load OBJ model
+    load_obj_file_data("../Objetos/cubo3.obj"); // Load OBJ model
     // Assign identity matrix to view_matrix and world_matrix
     view_matrix = mat4_identity();
     world_matrix = mat4_identity();
@@ -127,7 +126,7 @@ void render(void) {
     // Clear the color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    render_scene(show_faces, show_edges, show_vertices, back_face_culling);
+    render_scene(show_faces, show_edges, show_vertices, back_face_culling, aspect_ratio, fov_factor);
     render_color_buffer();
     clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);

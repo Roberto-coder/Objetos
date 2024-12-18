@@ -1,0 +1,3 @@
+"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\Proyect1.dir/objects.a
+"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\ar.exe" qc CMakeFiles\Proyect1.dir/objects.a @CMakeFiles\Proyect1.dir\objects1.rsp
+"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" -g -Wl,--whole-archive CMakeFiles\Proyect1.dir/objects.a -Wl,--no-whole-archive -o Proyect1.exe -Wl,--out-implib,libProyect1.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Proyect1.dir\linkLibs.rsp

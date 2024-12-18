@@ -14,6 +14,6 @@ extern mat4_t world_matrix; // Add this line
 
 // Function declarations
 void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_culling);
-void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool back_face_culling);
+void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool back_face_culling, float aspect_ratio, float fov_factor);
 
 #endif // RENDER_H

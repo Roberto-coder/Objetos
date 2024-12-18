@@ -1,4 +1,4 @@
-# Install script for directory: D:/7mo/CompGraph/Proyect1
+# Install script for directory: D:/7mo/CompGraph/Objetos
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "D:/Archivos del programa/CLion 2024.2.1/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "D:/Archivos del programa/CLion/CLion 2024.2.3/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/7mo/CompGraph/Proyect1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/7mo/CompGraph/Objetos/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
