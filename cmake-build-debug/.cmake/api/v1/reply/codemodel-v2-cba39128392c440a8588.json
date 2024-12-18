@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/7mo/CompGraph/Proyect1/cmake-build-debug",
-		"source" : "D:/7mo/CompGraph/Proyect1"
+		"build" : "D:/7mo/CompGraph/Objetos/cmake-build-debug",
+		"source" : "D:/7mo/CompGraph/Objetos"
 	},
 	"version" : 
 	{

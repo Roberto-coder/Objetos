@@ -1,4 +1,4 @@
-# Install script for directory: D:/7mo/CompGraph/Proyect1
+# Install script for directory: D:/7mo/CompGraph/Objetos
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/7mo/CompGraph/Proyect1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/7mo/CompGraph/Objetos/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
