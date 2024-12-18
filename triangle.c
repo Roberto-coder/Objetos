@@ -4,9 +4,6 @@
 #include "mesh.h"
 #include "render.h"
 
-triangle_t triangles[MAX_TRIANGLES];  // Definición de la variable global
-int triangle_count = 0;  // Definición del contador de triángulos, inicializado a 0
-
 // Dibuja un triángulo utilizando tres llamadas a draw_line
 void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color) {
     draw_line(x0, y0, x1, y1, color);

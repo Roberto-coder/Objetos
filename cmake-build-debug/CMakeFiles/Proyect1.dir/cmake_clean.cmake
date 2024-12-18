@@ -1,8 +1,12 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Proyect1.dir/array.c.obj"
   "CMakeFiles/Proyect1.dir/array.c.obj.d"
+  "CMakeFiles/Proyect1.dir/camera.c.obj"
+  "CMakeFiles/Proyect1.dir/camera.c.obj.d"
   "CMakeFiles/Proyect1.dir/display.c.obj"
   "CMakeFiles/Proyect1.dir/display.c.obj.d"
+  "CMakeFiles/Proyect1.dir/geometry.c.obj"
+  "CMakeFiles/Proyect1.dir/geometry.c.obj.d"
   "CMakeFiles/Proyect1.dir/main.c.obj"
   "CMakeFiles/Proyect1.dir/main.c.obj.d"
   "CMakeFiles/Proyect1.dir/matrix.c.obj"

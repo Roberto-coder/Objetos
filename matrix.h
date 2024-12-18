@@ -19,8 +19,6 @@ mat4_t mat4_make_rotation_y(float angle);
 mat4_t mat4_make_rotation_z(float angle);
 
 mat4_t mat4_mul_mat4(mat4_t a, mat4_t b);
-vec3_t mat4_mul_vec3(mat4_t mat, vec3_t v);
-
 
 
 

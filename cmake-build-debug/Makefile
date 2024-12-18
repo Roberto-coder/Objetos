@@ -47,10 +47,10 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\Archivos del programa\CLion\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "D:\Archivos del programa\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\Archivos del programa\CLion\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "D:\Archivos del programa\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -67,7 +67,7 @@ CMAKE_BINARY_DIR = D:\7mo\CompGraph\Objetos\cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"D:\Archivos del programa\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -77,7 +77,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"D:\Archivos del programa\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -152,6 +152,30 @@ array.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/array.c.s
 .PHONY : array.c.s
 
+camera.obj: camera.c.obj
+.PHONY : camera.obj
+
+# target to build an object file
+camera.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/camera.c.obj
+.PHONY : camera.c.obj
+
+camera.i: camera.c.i
+.PHONY : camera.i
+
+# target to preprocess a source file
+camera.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/camera.c.i
+.PHONY : camera.c.i
+
+camera.s: camera.c.s
+.PHONY : camera.s
+
+# target to generate assembly for a file
+camera.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/camera.c.s
+.PHONY : camera.c.s
+
 display.obj: display.c.obj
 .PHONY : display.obj
 
@@ -175,6 +199,30 @@ display.s: display.c.s
 display.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/display.c.s
 .PHONY : display.c.s
+
+geometry.obj: geometry.c.obj
+.PHONY : geometry.obj
+
+# target to build an object file
+geometry.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/geometry.c.obj
+.PHONY : geometry.c.obj
+
+geometry.i: geometry.c.i
+.PHONY : geometry.i
+
+# target to preprocess a source file
+geometry.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/geometry.c.i
+.PHONY : geometry.c.i
+
+geometry.s: geometry.c.s
+.PHONY : geometry.s
+
+# target to generate assembly for a file
+geometry.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proyect1.dir\build.make CMakeFiles/Proyect1.dir/geometry.c.s
+.PHONY : geometry.c.s
 
 main.obj: main.c.obj
 .PHONY : main.obj
@@ -356,9 +404,15 @@ help:
 	@echo ... array.obj
 	@echo ... array.i
 	@echo ... array.s
+	@echo ... camera.obj
+	@echo ... camera.i
+	@echo ... camera.s
 	@echo ... display.obj
 	@echo ... display.i
 	@echo ... display.s
+	@echo ... geometry.obj
+	@echo ... geometry.i
+	@echo ... geometry.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

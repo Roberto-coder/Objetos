@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "D:/Archivos del programa/CLion/CLion 2024.2.3/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "D:/Archivos del programa/CLion 2024.2.1/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

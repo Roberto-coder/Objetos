@@ -24,13 +24,7 @@ add_executable(Proyect1 main.c
         render.c
         transform.c
         transform.h
-        main.c
-        geometry.h
-        geometry.c
-        camera.h
-        camera.c
-        matrix.h
-)
+        main.c)
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY} ${OPENGL_LIBRARIES})
 

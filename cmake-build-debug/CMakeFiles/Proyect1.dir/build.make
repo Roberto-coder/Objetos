@@ -43,10 +43,10 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\Archivos del programa\CLion\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "D:\Archivos del programa\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\Archivos del programa\CLion\CLion 2024.2.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "D:\Archivos del programa\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -73,135 +73,165 @@ CMakeFiles/Proyect1.dir/main.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/main.c.obj: D:/7mo/CompGraph/Objetos/main.c
 CMakeFiles/Proyect1.dir/main.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Proyect1.dir/main.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/main.c.obj -MF CMakeFiles\Proyect1.dir\main.c.obj.d -o CMakeFiles\Proyect1.dir\main.c.obj -c D:\7mo\CompGraph\Objetos\main.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/main.c.obj -MF CMakeFiles\Proyect1.dir\main.c.obj.d -o CMakeFiles\Proyect1.dir\main.c.obj -c D:\7mo\CompGraph\Objetos\main.c
 
 CMakeFiles/Proyect1.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/main.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\main.c > CMakeFiles\Proyect1.dir\main.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\main.c > CMakeFiles\Proyect1.dir\main.c.i
 
 CMakeFiles/Proyect1.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/main.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\main.c -o CMakeFiles\Proyect1.dir\main.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\main.c -o CMakeFiles\Proyect1.dir\main.c.s
 
 CMakeFiles/Proyect1.dir/mesh.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/mesh.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/mesh.c.obj: D:/7mo/CompGraph/Objetos/mesh.c
 CMakeFiles/Proyect1.dir/mesh.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Proyect1.dir/mesh.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/mesh.c.obj -MF CMakeFiles\Proyect1.dir\mesh.c.obj.d -o CMakeFiles\Proyect1.dir\mesh.c.obj -c D:\7mo\CompGraph\Objetos\mesh.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/mesh.c.obj -MF CMakeFiles\Proyect1.dir\mesh.c.obj.d -o CMakeFiles\Proyect1.dir\mesh.c.obj -c D:\7mo\CompGraph\Objetos\mesh.c
 
 CMakeFiles/Proyect1.dir/mesh.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/mesh.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\mesh.c > CMakeFiles\Proyect1.dir\mesh.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\mesh.c > CMakeFiles\Proyect1.dir\mesh.c.i
 
 CMakeFiles/Proyect1.dir/mesh.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/mesh.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\mesh.c -o CMakeFiles\Proyect1.dir\mesh.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\mesh.c -o CMakeFiles\Proyect1.dir\mesh.c.s
 
 CMakeFiles/Proyect1.dir/triangle.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/triangle.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/triangle.c.obj: D:/7mo/CompGraph/Objetos/triangle.c
 CMakeFiles/Proyect1.dir/triangle.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Proyect1.dir/triangle.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/triangle.c.obj -MF CMakeFiles\Proyect1.dir\triangle.c.obj.d -o CMakeFiles\Proyect1.dir\triangle.c.obj -c D:\7mo\CompGraph\Objetos\triangle.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/triangle.c.obj -MF CMakeFiles\Proyect1.dir\triangle.c.obj.d -o CMakeFiles\Proyect1.dir\triangle.c.obj -c D:\7mo\CompGraph\Objetos\triangle.c
 
 CMakeFiles/Proyect1.dir/triangle.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/triangle.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\triangle.c > CMakeFiles\Proyect1.dir\triangle.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\triangle.c > CMakeFiles\Proyect1.dir\triangle.c.i
 
 CMakeFiles/Proyect1.dir/triangle.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/triangle.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\triangle.c -o CMakeFiles\Proyect1.dir\triangle.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\triangle.c -o CMakeFiles\Proyect1.dir\triangle.c.s
 
 CMakeFiles/Proyect1.dir/array.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/array.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/array.c.obj: D:/7mo/CompGraph/Objetos/array.c
 CMakeFiles/Proyect1.dir/array.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Proyect1.dir/array.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/array.c.obj -MF CMakeFiles\Proyect1.dir\array.c.obj.d -o CMakeFiles\Proyect1.dir\array.c.obj -c D:\7mo\CompGraph\Objetos\array.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/array.c.obj -MF CMakeFiles\Proyect1.dir\array.c.obj.d -o CMakeFiles\Proyect1.dir\array.c.obj -c D:\7mo\CompGraph\Objetos\array.c
 
 CMakeFiles/Proyect1.dir/array.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/array.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\array.c > CMakeFiles\Proyect1.dir\array.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\array.c > CMakeFiles\Proyect1.dir\array.c.i
 
 CMakeFiles/Proyect1.dir/array.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/array.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\array.c -o CMakeFiles\Proyect1.dir\array.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\array.c -o CMakeFiles\Proyect1.dir\array.c.s
 
 CMakeFiles/Proyect1.dir/vector.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/vector.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/vector.c.obj: D:/7mo/CompGraph/Objetos/vector.c
 CMakeFiles/Proyect1.dir/vector.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Proyect1.dir/vector.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/vector.c.obj -MF CMakeFiles\Proyect1.dir\vector.c.obj.d -o CMakeFiles\Proyect1.dir\vector.c.obj -c D:\7mo\CompGraph\Objetos\vector.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/vector.c.obj -MF CMakeFiles\Proyect1.dir\vector.c.obj.d -o CMakeFiles\Proyect1.dir\vector.c.obj -c D:\7mo\CompGraph\Objetos\vector.c
 
 CMakeFiles/Proyect1.dir/vector.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/vector.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\vector.c > CMakeFiles\Proyect1.dir\vector.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\vector.c > CMakeFiles\Proyect1.dir\vector.c.i
 
 CMakeFiles/Proyect1.dir/vector.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/vector.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\vector.c -o CMakeFiles\Proyect1.dir\vector.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\vector.c -o CMakeFiles\Proyect1.dir\vector.c.s
 
 CMakeFiles/Proyect1.dir/display.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/display.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/display.c.obj: D:/7mo/CompGraph/Objetos/display.c
 CMakeFiles/Proyect1.dir/display.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Proyect1.dir/display.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/display.c.obj -MF CMakeFiles\Proyect1.dir\display.c.obj.d -o CMakeFiles\Proyect1.dir\display.c.obj -c D:\7mo\CompGraph\Objetos\display.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/display.c.obj -MF CMakeFiles\Proyect1.dir\display.c.obj.d -o CMakeFiles\Proyect1.dir\display.c.obj -c D:\7mo\CompGraph\Objetos\display.c
 
 CMakeFiles/Proyect1.dir/display.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/display.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\display.c > CMakeFiles\Proyect1.dir\display.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\display.c > CMakeFiles\Proyect1.dir\display.c.i
 
 CMakeFiles/Proyect1.dir/display.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/display.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\display.c -o CMakeFiles\Proyect1.dir\display.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\display.c -o CMakeFiles\Proyect1.dir\display.c.s
 
 CMakeFiles/Proyect1.dir/matrix.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/matrix.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/matrix.c.obj: D:/7mo/CompGraph/Objetos/matrix.c
 CMakeFiles/Proyect1.dir/matrix.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Proyect1.dir/matrix.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/matrix.c.obj -MF CMakeFiles\Proyect1.dir\matrix.c.obj.d -o CMakeFiles\Proyect1.dir\matrix.c.obj -c D:\7mo\CompGraph\Objetos\matrix.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/matrix.c.obj -MF CMakeFiles\Proyect1.dir\matrix.c.obj.d -o CMakeFiles\Proyect1.dir\matrix.c.obj -c D:\7mo\CompGraph\Objetos\matrix.c
 
 CMakeFiles/Proyect1.dir/matrix.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/matrix.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\matrix.c > CMakeFiles\Proyect1.dir\matrix.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\matrix.c > CMakeFiles\Proyect1.dir\matrix.c.i
 
 CMakeFiles/Proyect1.dir/matrix.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/matrix.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\matrix.c -o CMakeFiles\Proyect1.dir\matrix.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\matrix.c -o CMakeFiles\Proyect1.dir\matrix.c.s
 
 CMakeFiles/Proyect1.dir/render.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/render.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/render.c.obj: D:/7mo/CompGraph/Objetos/render.c
 CMakeFiles/Proyect1.dir/render.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Proyect1.dir/render.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/render.c.obj -MF CMakeFiles\Proyect1.dir\render.c.obj.d -o CMakeFiles\Proyect1.dir\render.c.obj -c D:\7mo\CompGraph\Objetos\render.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/render.c.obj -MF CMakeFiles\Proyect1.dir\render.c.obj.d -o CMakeFiles\Proyect1.dir\render.c.obj -c D:\7mo\CompGraph\Objetos\render.c
 
 CMakeFiles/Proyect1.dir/render.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/render.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\render.c > CMakeFiles\Proyect1.dir\render.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\render.c > CMakeFiles\Proyect1.dir\render.c.i
 
 CMakeFiles/Proyect1.dir/render.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/render.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\render.c -o CMakeFiles\Proyect1.dir\render.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\render.c -o CMakeFiles\Proyect1.dir\render.c.s
 
 CMakeFiles/Proyect1.dir/transform.c.obj: CMakeFiles/Proyect1.dir/flags.make
 CMakeFiles/Proyect1.dir/transform.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
 CMakeFiles/Proyect1.dir/transform.c.obj: D:/7mo/CompGraph/Objetos/transform.c
 CMakeFiles/Proyect1.dir/transform.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Proyect1.dir/transform.c.obj"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/transform.c.obj -MF CMakeFiles\Proyect1.dir\transform.c.obj.d -o CMakeFiles\Proyect1.dir\transform.c.obj -c D:\7mo\CompGraph\Objetos\transform.c
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/transform.c.obj -MF CMakeFiles\Proyect1.dir\transform.c.obj.d -o CMakeFiles\Proyect1.dir\transform.c.obj -c D:\7mo\CompGraph\Objetos\transform.c
 
 CMakeFiles/Proyect1.dir/transform.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/transform.c.i"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\transform.c > CMakeFiles\Proyect1.dir\transform.c.i
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\transform.c > CMakeFiles\Proyect1.dir\transform.c.i
 
 CMakeFiles/Proyect1.dir/transform.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/transform.c.s"
-	"D:\Archivos del programa\CLion\CLion 2024.2.3\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\transform.c -o CMakeFiles\Proyect1.dir\transform.c.s
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\transform.c -o CMakeFiles\Proyect1.dir\transform.c.s
+
+CMakeFiles/Proyect1.dir/geometry.c.obj: CMakeFiles/Proyect1.dir/flags.make
+CMakeFiles/Proyect1.dir/geometry.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
+CMakeFiles/Proyect1.dir/geometry.c.obj: D:/7mo/CompGraph/Objetos/geometry.c
+CMakeFiles/Proyect1.dir/geometry.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Proyect1.dir/geometry.c.obj"
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/geometry.c.obj -MF CMakeFiles\Proyect1.dir\geometry.c.obj.d -o CMakeFiles\Proyect1.dir\geometry.c.obj -c D:\7mo\CompGraph\Objetos\geometry.c
+
+CMakeFiles/Proyect1.dir/geometry.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/geometry.c.i"
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\geometry.c > CMakeFiles\Proyect1.dir\geometry.c.i
+
+CMakeFiles/Proyect1.dir/geometry.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/geometry.c.s"
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\geometry.c -o CMakeFiles\Proyect1.dir\geometry.c.s
+
+CMakeFiles/Proyect1.dir/camera.c.obj: CMakeFiles/Proyect1.dir/flags.make
+CMakeFiles/Proyect1.dir/camera.c.obj: CMakeFiles/Proyect1.dir/includes_C.rsp
+CMakeFiles/Proyect1.dir/camera.c.obj: D:/7mo/CompGraph/Objetos/camera.c
+CMakeFiles/Proyect1.dir/camera.c.obj: CMakeFiles/Proyect1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/Proyect1.dir/camera.c.obj"
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Proyect1.dir/camera.c.obj -MF CMakeFiles\Proyect1.dir\camera.c.obj.d -o CMakeFiles\Proyect1.dir\camera.c.obj -c D:\7mo\CompGraph\Objetos\camera.c
+
+CMakeFiles/Proyect1.dir/camera.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Proyect1.dir/camera.c.i"
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\7mo\CompGraph\Objetos\camera.c > CMakeFiles\Proyect1.dir\camera.c.i
+
+CMakeFiles/Proyect1.dir/camera.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Proyect1.dir/camera.c.s"
+	"D:\Archivos del programa\CLion 2024.2.1\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\7mo\CompGraph\Objetos\camera.c -o CMakeFiles\Proyect1.dir\camera.c.s
 
 # Object files for target Proyect1
 Proyect1_OBJECTS = \
@@ -213,7 +243,9 @@ Proyect1_OBJECTS = \
 "CMakeFiles/Proyect1.dir/display.c.obj" \
 "CMakeFiles/Proyect1.dir/matrix.c.obj" \
 "CMakeFiles/Proyect1.dir/render.c.obj" \
-"CMakeFiles/Proyect1.dir/transform.c.obj"
+"CMakeFiles/Proyect1.dir/transform.c.obj" \
+"CMakeFiles/Proyect1.dir/geometry.c.obj" \
+"CMakeFiles/Proyect1.dir/camera.c.obj"
 
 # External object files for target Proyect1
 Proyect1_EXTERNAL_OBJECTS =
@@ -227,13 +259,15 @@ Proyect1.exe: CMakeFiles/Proyect1.dir/display.c.obj
 Proyect1.exe: CMakeFiles/Proyect1.dir/matrix.c.obj
 Proyect1.exe: CMakeFiles/Proyect1.dir/render.c.obj
 Proyect1.exe: CMakeFiles/Proyect1.dir/transform.c.obj
+Proyect1.exe: CMakeFiles/Proyect1.dir/geometry.c.obj
+Proyect1.exe: CMakeFiles/Proyect1.dir/camera.c.obj
 Proyect1.exe: CMakeFiles/Proyect1.dir/build.make
 Proyect1.exe: D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2main.a
 Proyect1.exe: D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2.dll.a
 Proyect1.exe: CMakeFiles/Proyect1.dir/linkLibs.rsp
 Proyect1.exe: CMakeFiles/Proyect1.dir/objects1.rsp
 Proyect1.exe: CMakeFiles/Proyect1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable Proyect1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\7mo\CompGraph\Objetos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking C executable Proyect1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Proyect1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -9,7 +9,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/7mo/CompGraph/Objetos/array.c" "CMakeFiles/Proyect1.dir/array.c.obj" "gcc" "CMakeFiles/Proyect1.dir/array.c.obj.d"
+  "D:/7mo/CompGraph/Objetos/camera.c" "CMakeFiles/Proyect1.dir/camera.c.obj" "gcc" "CMakeFiles/Proyect1.dir/camera.c.obj.d"
   "D:/7mo/CompGraph/Objetos/display.c" "CMakeFiles/Proyect1.dir/display.c.obj" "gcc" "CMakeFiles/Proyect1.dir/display.c.obj.d"
+  "D:/7mo/CompGraph/Objetos/geometry.c" "CMakeFiles/Proyect1.dir/geometry.c.obj" "gcc" "CMakeFiles/Proyect1.dir/geometry.c.obj.d"
   "D:/7mo/CompGraph/Objetos/main.c" "CMakeFiles/Proyect1.dir/main.c.obj" "gcc" "CMakeFiles/Proyect1.dir/main.c.obj.d"
   "D:/7mo/CompGraph/Objetos/matrix.c" "CMakeFiles/Proyect1.dir/matrix.c.obj" "gcc" "CMakeFiles/Proyect1.dir/matrix.c.obj.d"
   "D:/7mo/CompGraph/Objetos/mesh.c" "CMakeFiles/Proyect1.dir/mesh.c.obj" "gcc" "CMakeFiles/Proyect1.dir/mesh.c.obj.d"
