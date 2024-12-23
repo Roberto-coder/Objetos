@@ -1,6 +1,8 @@
 #ifndef INC_3DRENDERER_VECTOR_H
 #define INC_3DRENDERER_VECTOR_H
 
+#include <stdint.h>
+
 #include    "vector.h"
 #include "matrix.h"
 
@@ -13,6 +15,7 @@ typedef struct {
     float x;
     float y;
     float z;
+    uint32_t intensity;
 } vec3_t;
 
 typedef struct {
@@ -51,7 +54,8 @@ vec3_t vec3_rotate_z(vec3_t v, float angle);
 vec4_t vec4_from_vec3(vec3_t v);
 vec3_t vec3_from_vec4(vec4_t v);
 
-
+vec3_t vec3_reflect(vec3_t l, vec3_t n);
+vec3_t calculate_vertex_normal(int vertex_index);
 //vec4_t mat4_mul_vec4(mat4_t m, vec4_t v);
 
 

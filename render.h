@@ -1,26 +1,35 @@
-#ifndef RENDER_H
-#define RENDER_H
+#ifndef INC_3DRENDERER_RENDER_H
+#define INC_3DRENDERER_RENDER_H
 
 #include <stdbool.h>
 #include <stdint.h>
+
 #include "triangle.h"
 #include "vector.h"
 
 typedef struct {
     vec3_t direction;
+    vec3_t color; // Color de la luz
+    float intensity; // Intensidad de la luz
 } light_t;
 
-// Declare the global variables
+extern light_t light;
 extern vec2_t* projected_points;
-extern triangle_t* visible_triangles;
+extern face_t* visible_faces;
+extern const uint32_t COLOR_CARAS;
+
 extern mat4_t view_matrix;
 extern mat4_t world_matrix;
-extern light_t light;
 
+
+
+void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool back_face_culling, bool apply_shading, float aspect_ratio, float fov_factor, vec3_t camera_position);
 uint32_t light_apply_intensity(uint32_t original_color, float percentage_factor);
-
-// Function declarations
 void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_culling);
-void render_scene(bool show_faces, bool show_edges, bool show_vertices, bool back_face_culling);
 
-#endif // RENDER_H
+uint32_t linear_interpolation(uint32_t start, uint32_t end, float t);
+void calculate_vertex_intensities(vec3_t camera_pos);
+uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint32_t ambient, uint32_t diffuse, uint32_t specular, float shininess);
+
+
+#endif // INC_3DRENDERER_RENDER_H

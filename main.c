@@ -31,12 +31,7 @@ vec3_t camera_position = {0, 0, -5}; // Adjust camera position
 vec3_t camera_rotation = {0, 0, 0}; // Camera rotation
 
 float fov_factor = 360; // Adjust projection factor
-//float aspect_ratio = 16.0f / 9.0f; // Window aspect ratio
 float aspect_ratio;
-
-
-mat4_t view_matrix; // Define view_matrix
-mat4_t world_matrix; // Define world_matrix
 
 int main(int argc, char* argv[]) {
     // Initialize SDL and window
@@ -56,7 +51,6 @@ int main(int argc, char* argv[]) {
     while (is_running) {
         process_input();
         update();
-        calculate_visible_faces(camera_position, fov_factor, back_face_culling); // Recalculate visible faces
         render();
 
         int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - previous_frame_time);
@@ -74,12 +68,12 @@ int main(int argc, char* argv[]) {
 
 void setup(void) {
     srand(time(NULL)); // Initialize seed for generating random colors
-    load_obj_file_data("../Objetos/dona.obj"); // Load OBJ model
+    load_obj_file_data("../Objetos/cubo3.obj"); // Load OBJ model
     // Assign identity matrix to view_matrix and world_matrix
     view_matrix = mat4_identity();
     world_matrix = mat4_identity();
 
-    float aspect_ratio = (float)window_width / (float)window_height;
+    aspect_ratio = (float)window_width / (float)window_height;
 }
 
 void process_input(void) {
@@ -90,16 +84,15 @@ void process_input(void) {
         }
         if (event.type == SDL_KEYDOWN) {
             switch (event.key.keysym.sym) {
-                case SDLK_c: back_face_culling = !back_face_culling; break; // Toggle culling
-                case SDLK_s: apply_shading = !apply_shading; break; // Toggle shading
+                case SDLK_f: show_faces = !show_faces; break;
+                case SDLK_e: show_edges = !show_edges; break;
+                case SDLK_v: show_vertices = !show_vertices; break;
+                case SDLK_c: back_face_culling = !back_face_culling; break;
+                case SDLK_s: apply_shading = !apply_shading; break;
                 case SDLK_LEFT: camera_position.x += 1; break;
                 case SDLK_RIGHT: camera_position.x -= 1; break;
                 case SDLK_UP: camera_position.y += 1; break;
                 case SDLK_DOWN: camera_position.y -= 1; break;
-                case SDLK_q: camera_rotation.y -= 0.1; break; // Rotate camera left
-                case SDLK_e: camera_rotation.y += 0.1; break; // Rotate camera right
-                case SDLK_r: camera_rotation.x -= 0.1; break; // Rotate camera up
-                case SDLK_f: camera_rotation.x += 0.1; break; // Rotate camera down
             }
         }
     }
@@ -131,7 +124,7 @@ void render(void) {
     // Clear the color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    render_scene(show_faces, show_edges, show_vertices, back_face_culling);
+    render_scene(show_faces, show_edges, show_vertices, back_face_culling, apply_shading, aspect_ratio, fov_factor, camera_position);
     render_color_buffer();
     clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);
