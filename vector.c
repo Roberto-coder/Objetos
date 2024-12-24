@@ -119,28 +119,28 @@ vec3_t vec3_from_vec2(vec2_t v) {
 vec2_t project(vec3_t vertex, mat4_t world_matrix, mat4_t view_matrix, float aspect_ratio, float fov_factor) {
     // Transformar el vértice al espacio del mundo
     vec3_t transformed_vertex = mat4_mul_vec3(world_matrix, vertex);
-    printf("Transformed Vertex: (%f, %f, %f)\n", transformed_vertex.x, transformed_vertex.y, transformed_vertex.z);
+    //printf("Transformed Vertex: (%f, %f, %f)\n", transformed_vertex.x, transformed_vertex.y, transformed_vertex.z);
 
     // Transformar a espacio de cámara usando la matriz de vista
     vec3_t camera_vertex = mat4_mul_vec3(view_matrix, transformed_vertex);
-    printf("Camera Vertex: (%f, %f, %f)\n", camera_vertex.x, camera_vertex.y, camera_vertex.z);
+    //printf("Camera Vertex: (%f, %f, %f)\n", camera_vertex.x, camera_vertex.y, camera_vertex.z);
 
     // Aplicar la matriz de proyección
     mat4_t projection_matrix = mat4_make_perspective(fov_factor, aspect_ratio, 0.1f, 100.0f);
     vec4_t projected_vertex = mat4_mul_vec4(projection_matrix, vec4_from_vec3(camera_vertex));
-    printf("Projected Vertex: (%f, %f, %f, %f)\n", projected_vertex.x, projected_vertex.y, projected_vertex.z, projected_vertex.w);
+    //printf("Projected Vertex: (%f, %f, %f, %f)\n", projected_vertex.x, projected_vertex.y, projected_vertex.z, projected_vertex.w);
 
     // División perspectiva
     vec3_t ndc_vertex = perspective_divide(projected_vertex);
-    printf("NDC Vertex: (%f, %f, %f)\n", ndc_vertex.x, ndc_vertex.y, ndc_vertex.z);
+    //printf("NDC Vertex: (%f, %f, %f)\n", ndc_vertex.x, ndc_vertex.y, ndc_vertex.z);
 
     // Corregir la inversión del eje y
     ndc_vertex.y *= -1;
-    printf("Corrected NDC Vertex: (%f, %f, %f)\n", ndc_vertex.x, ndc_vertex.y, ndc_vertex.z);
+    //printf("Corrected NDC Vertex: (%f, %f, %f)\n", ndc_vertex.x, ndc_vertex.y, ndc_vertex.z);
 
     // Escalar y centrar
     vec2_t screen_vertex = scale_and_center(ndc_vertex, window_width, window_height);
-    printf("Screen Vertex: (%f, %f)\n", screen_vertex.x, screen_vertex.y);
+    //printf("Screen Vertex: (%f, %f)\n", screen_vertex.x, screen_vertex.y);
 
     return screen_vertex;
 }
@@ -241,5 +241,13 @@ vec3_t calculate_vertex_normal(int vertex_index) {
     }
 
     return normal_sum;
+}
+
+// Calcula los pesos baricéntricos para un punto p dentro del triángulo definido por a, b y c
+void calculate_barycentric_weights(vec2_t p, vec2_t a, vec2_t b, vec2_t c, float* w1, float* w2, float* w3) {
+    float denominator = (b.y - c.y) * (a.x - c.x) + (c.x - b.x) * (a.y - c.y);
+    *w1 = ((b.y - c.y) * (p.x - c.x) + (c.x - b.x) * (p.y - c.y)) / denominator;
+    *w2 = ((c.y - a.y) * (p.x - c.x) + (a.x - c.x) * (p.y - c.y)) / denominator;
+    *w3 = 1.0f - *w1 - *w2;
 }
 

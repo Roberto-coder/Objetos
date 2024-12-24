@@ -1,10 +1,15 @@
 #include "render.h"
 #include <math.h>
+#include <stdio.h>
+#include <stdint.h>
 #include "mesh.h"
 #include "vector.h"
 #include "array.h"
 #include "transform.h"
 #include "triangle.h"
+
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#define max(a, b) ((a) > (b) ? (a) : (b))
 
 // Colors for elements
 const uint32_t COLOR_CARAS = 0xFFFF0000;    // Red for faces 0xFFFFFFFF;
@@ -50,6 +55,9 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
         vec3_t lightDir = vec3_sub(light.direction, vertex_a);
         vec3_t viewDir = vec3_sub(camera_pos, vertex_a);
 
+        vec3_normalize(&lightDir);
+        vec3_normalize(&viewDir);
+
         // Calculate the Phong illumination
         uint32_t ambient = 0xFF1A1A1A; // Example ambient color
         uint32_t diffuse = 0xFF808080; // Example diffuse color
@@ -72,10 +80,8 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
 }
 
 void render_scene(float aspect_ratio, float fov_factor, vec3_t camera_position) {
-    //calculate_visible_faces(camera_position, fov_factor, back_face_culling);
     face_t* faces_to_render = visible_faces;
 
-    // Draw faces
     for (int i = 0; i < array_length(faces_to_render); i++) {
         face_t face = faces_to_render[i];
 
@@ -87,29 +93,25 @@ void render_scene(float aspect_ratio, float fov_factor, vec3_t camera_position) 
         vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov_factor);
         vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov_factor);
 
-        uint32_t face_color = face.color;
         if (apply_shading) {
-            // Interpolate the intensity values of the vertices
-            float intensity_a = vertex_a.intensity;
-            float intensity_b = vertex_b.intensity;
-            float intensity_c = vertex_c.intensity;
+            for (int y = min(projected_a.y, min(projected_b.y, projected_c.y)); y <= max(projected_a.y, max(projected_b.y, projected_c.y)); y++) {
+                for (int x = min(projected_a.x, min(projected_b.x, projected_c.x)); x <= max(projected_a.x, max(projected_b.x, projected_c.x)); x++) {
+                    float w1, w2, w3;
+                    calculate_barycentric_weights((vec2_t){x, y}, projected_a, projected_b, projected_c, &w1, &w2, &w3);
 
-            // Calculate the interpolated intensity for the face
-            float t = 0.5f; // Example interpolation factor
-            float interpolated_intensity = (intensity_a + intensity_b + intensity_c) / 3.0f;
-
-            // Apply the interpolated intensity to the face color
-            face_color = linear_interpolation(face.color, 0xFF000000, interpolated_intensity * t);
-        }
-
-        // Check if the face is visible based on back-face culling
-        if (!back_face_culling || is_face_visible(calculate_normal(vertex_a, vertex_b, vertex_c), camera_position, vertex_a)) {
+                    if (w1 >= 0 && w2 >= 0 && w3 >= 0) {
+                        uint32_t interpolated_color = barycentric_interpolation(vertex_a.intensity, vertex_b.intensity, vertex_c.intensity, w1, w2, w3);
+                        draw_pixel(x, y, interpolated_color);
+                    }
+                }
+            }
+        } else {
             if (show_faces) {
                 draw_filled_triangle(
                     projected_a.x, projected_a.y,
                     projected_b.x, projected_b.y,
                     projected_c.x, projected_c.y,
-                    face_color
+                    face.color
                 );
             }
 
@@ -141,7 +143,7 @@ uint32_t linear_interpolation(uint32_t start, uint32_t end, float t) {
 }
 
 // Interpolación para coordenadas baricéntricas (comentario)
-/*
+
 uint32_t barycentric_interpolation(uint32_t i1, uint32_t i2, uint32_t i3, float w1, float w2, float w3) {
     uint32_t a = (i1 & 0xFF000000) * w1 + (i2 & 0xFF000000) * w2 + (i3 & 0xFF000000) * w3;
     uint32_t r = (i1 & 0x00FF0000) * w1 + (i2 & 0x00FF0000) * w2 + (i3 & 0x00FF0000) * w3;
@@ -149,7 +151,7 @@ uint32_t barycentric_interpolation(uint32_t i1, uint32_t i2, uint32_t i3, float 
     uint32_t b = (i1 & 0x000000FF) * w1 + (i2 & 0x000000FF) * w2 + (i3 & 0x000000FF) * w3;
     return a | r | g | b;
 }
-*/
+
 
 // Calcular la intensidad en cada vértice usando el modelo de iluminación de Phong
 void calculate_vertex_intensities(vec3_t camera_pos) {
@@ -158,6 +160,9 @@ void calculate_vertex_intensities(vec3_t camera_pos) {
         vec3_t normal = calculate_vertex_normal(i + 1); // Los índices de los vértices comienzan en 1
         vec3_t lightDir = vec3_sub(light.direction, vertex);
         vec3_t viewDir = vec3_sub(camera_pos, vertex);
+
+        vec3_normalize(&lightDir);
+        vec3_normalize(&viewDir);
 
         uint32_t ambient = 0xFF1A1A1A; // Ejemplo de color ambiente (negro)
         uint32_t diffuse = 0xFF808080; // Ejemplo de color difuso (gris obscuro)
@@ -175,6 +180,11 @@ uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint3
     vec3_normalize(&lightDir);
     vec3_normalize(&viewDir);
 
+    // Debug: Imprimir los vectores normalizados
+    //printf("Normal: (%f, %f, %f)\n", normal.x, normal.y, normal.z);
+    //printf("LightDir: (%f, %f, %f)\n", lightDir.x, lightDir.y, lightDir.z);
+    //printf("ViewDir: (%f, %f, %f)\n", viewDir.x, viewDir.y, viewDir.z);
+
     // Iluminación ambiente
     uint32_t ambientComponent = ambient;
 
@@ -182,10 +192,16 @@ uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint3
     float diff = fmax(vec3_dot(normal, lightDir), 0.0);
     uint32_t diffuseComponent = light_apply_intensity(diffuse, diff);
 
+    // Debug: Imprimir la intensidad difusa
+    //printf("Diffuse Intensity: %f\n", diff);
+
     // Iluminación especular
     vec3_t reflectDir = vec3_reflect(lightDir, normal);
     float spec = pow(fmax(vec3_dot(viewDir, reflectDir), 0.0), shininess);
     uint32_t specularComponent = light_apply_intensity(specular, spec);
+
+    // Debug: Imprimir la intensidad especular
+    //printf("Specular Intensity: %f\n", spec);
 
     // Sumar las componentes
     uint32_t result = ambientComponent + diffuseComponent + specularComponent;
@@ -196,8 +212,10 @@ uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint3
     uint32_t g = fmin((result & 0x0000FF00), 0x0000FF00);
     uint32_t b = fmin((result & 0x000000FF), 0x000000FF);
 
+    // Debug: Imprimir el color resultante
+    printf("Resulting Color: 0x%X\n", a | r | g | b);
+
     return a | r | g | b;
-    //return result;
 }
 
 // Function to apply light intensity to the original color

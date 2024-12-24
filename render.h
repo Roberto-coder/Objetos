@@ -33,7 +33,10 @@ uint32_t light_apply_intensity(uint32_t original_color, float percentage_factor)
 void render_scene(float aspect_ratio, float fov_factor, vec3_t camera_position);
 
 uint32_t linear_interpolation(uint32_t start, uint32_t end, float t);
+uint32_t barycentric_interpolation(uint32_t i1, uint32_t i2, uint32_t i3, float w1, float w2, float w3);
 void calculate_vertex_intensities(vec3_t camera_pos);
 uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint32_t ambient, uint32_t diffuse, uint32_t specular, float shininess);
+
+void print_vertex_normals();
 
 #endif // RENDER_H

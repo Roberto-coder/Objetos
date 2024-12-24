@@ -65,7 +65,17 @@ void setup(void) {
     object_translation.z = -7.0f;
 
     // Cargar datos del archivo .obj
-    load_obj_file_data("../Objetos/dona.obj");
+    load_obj_file_data("../Objetos/icosphere.obj");
+
+    // Imprimir las normales de los vértices para depuración
+    //print_vertex_normals();
+}
+
+void print_vertex_normals() {
+    for (int i = 0; i < array_length(mesh.vertices); i++) {
+        vec3_t normal = calculate_vertex_normal(i + 1);
+        printf("Normal del vértice %d: (%f, %f, %f)\n", i + 1, normal.x, normal.y, normal.z);
+    }
 }
 
 void process_input(void) {

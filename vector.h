@@ -72,6 +72,7 @@ vec2_t orthogonal_projection(vec3_t vertex, float aspect_ratio);
 
 vec3_t vec3_reflect(vec3_t l, vec3_t n);
 vec3_t calculate_vertex_normal(int vertex_index);
-//vec4_t mat4_mul_vec4(mat4_t m, vec4_t v);
+
+void calculate_barycentric_weights(vec2_t p, vec2_t a, vec2_t b, vec2_t c, float* w1, float* w2, float* w3);
 
 #endif //INC_3DRENDERER_VECTOR_H
