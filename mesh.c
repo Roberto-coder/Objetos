@@ -11,15 +11,24 @@ mesh_t mesh = {
     .faces = NULL
 };
 
-// Array of predefined colors
 uint32_t predefined_colors[6] = {
+    0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF,
+    0xFFFFFFFF
+};
+
+// Array of predefined colors
+/*uint32_t predefined_colors[6] = {
     0xFFB71C1C, // Dark Red
     0xFF1B5E20, // Dark Green
     0xFF0D47A1, // Dark Blue
     0xFFF57F17, // Mustard Yellow
     0xFF4A148C, // Dark Purple
     0xFFBF360C  // Burnt Orange
-};
+};*/
 
 // Generate a color from the predefined array
 uint32_t generate_random_color() {

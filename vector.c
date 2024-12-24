@@ -3,7 +3,9 @@
 #include <stdio.h>
 #include "display.h"
 #include "matrix.h"
+#include "mesh.h"
 #include "transform.h"
+#include "triangle.h"
 
 // Vector 2D functions
 float vec2_length(vec2_t v) {
@@ -205,3 +207,39 @@ vec2_t orthogonal_projection(vec3_t vertex, float aspect_ratio) {
     result.y = vertex.y;
     return result;
 }
+
+vec3_t vec3_reflect(vec3_t l, vec3_t n) {
+    float dotLN = vec3_dot(l, n);
+    vec3_t result = {
+        2 * dotLN * n.x - l.x,
+        2 * dotLN * n.y - l.y,
+        2 * dotLN * n.z - l.z
+    };
+    return result;
+}
+
+// Calcular el vector normal promedio en cada vértice
+vec3_t calculate_vertex_normal(int vertex_index) {
+    vec3_t normal_sum = {0, 0, 0};
+    int adjacent_faces_count = 0;
+
+    for (int i = 0; i < array_length(mesh.faces); i++) {
+        face_t face = mesh.faces[i];
+        if (face.a == vertex_index || face.b == vertex_index || face.c == vertex_index) {
+            vec3_t vertex_a = mesh.vertices[face.a - 1];
+            vec3_t vertex_b = mesh.vertices[face.b - 1];
+            vec3_t vertex_c = mesh.vertices[face.c - 1];
+            vec3_t face_normal = calculate_normal(vertex_a, vertex_b, vertex_c);
+            normal_sum = vec3_add(normal_sum, face_normal);
+            adjacent_faces_count++;
+        }
+    }
+
+    if (adjacent_faces_count > 0) {
+        normal_sum = vec3_div(normal_sum, (float)adjacent_faces_count);
+        vec3_normalize(&normal_sum);
+    }
+
+    return normal_sum;
+}
+

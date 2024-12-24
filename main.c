@@ -19,10 +19,10 @@ bool is_running = false;
 int previous_frame_time = 0;
 
 bool show_faces = true;
-bool show_edges = true;
-bool show_vertices = true;
-bool show_normals = false;
-bool backface_culling_enabled = true; // Define here
+bool show_edges = false;
+bool show_vertices = false;
+bool back_face_culling = true;
+bool apply_shading = true;
 
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 0};
@@ -65,7 +65,7 @@ void setup(void) {
     object_translation.z = -7.0f;
 
     // Cargar datos del archivo .obj
-    load_obj_file_data("../Objetos/chango.obj");
+    load_obj_file_data("../Objetos/dona.obj");
 }
 
 void process_input(void) {
@@ -80,10 +80,10 @@ void process_input(void) {
                     case SDLK_ESCAPE:
                         is_running = false;
                         break;
-                    case SDLK_w:
+                    case SDLK_UP:
                         object_translation.z += 0.1f;
                         break;
-                    case SDLK_s:
+                    case SDLK_DOWN:
                         object_translation.z -= 0.1f;
                         break;
                     case SDLK_f:
@@ -96,7 +96,10 @@ void process_input(void) {
                         show_vertices = !show_vertices;
                         break;
                     case SDLK_c:
-                        backface_culling_enabled = !backface_culling_enabled;
+                        back_face_culling = !back_face_culling;
+                        break;
+                    case SDLK_s:
+                        apply_shading = !apply_shading;
                         break;
                 }
                 break;
@@ -106,7 +109,7 @@ void process_input(void) {
 
 void update(void) {
     // Aplicar rotaciones con incrementos menores
-    rotate_object(&object_rotation, 0.01, 0.01, 0.01);
+    rotate_object(&object_rotation, 0.001, 0.001, 0.001);
 
     // Crear matriz de transformación
     world_matrix = mat4_identity();
@@ -119,11 +122,11 @@ void update(void) {
     view_matrix = mat4_look_at(camera_position, (vec3_t){0, 0, 0}, (vec3_t){0, 1, 0});
 
     // Calcular las caras visibles
-    calculate_visible_faces(camera_position, fov_factor, backface_culling_enabled);
+    calculate_visible_faces(camera_position, fov_factor, back_face_culling);
 }
 
 void render(void) {
-    render_scene(show_faces, show_edges, show_vertices, backface_culling_enabled, aspect_ratio, fov_factor, camera_position);
+    render_scene(aspect_ratio, fov_factor, camera_position);
     render_color_buffer();
     clear_color_buffer(0xFF000000);
     SDL_RenderPresent(renderer);
