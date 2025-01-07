@@ -25,6 +25,10 @@ int compare_faces_by_depth(const void* a, const void* b);
 int compare_faces_by_depth_asc(const void* a, const void* b);
 bool is_face_visible(vec3_t normal, vec3_t camera_pos, vec3_t vertex);
 
+void draw_filled_triangle_gouraud(int x0, int y0, float i0, int x1, int y1, float i1, int x2, int y2, float i2, uint32_t color);
+void draw_line_gouraud(int x0, int y0, float i0, int x1, int y1, float i1, uint32_t color);
+void draw_flat_bottom_triangle_gouraud(int x0, int y0, float i0, int x1, int y1, float i1, int x2, int y2, float i2, uint32_t color);
+void draw_flat_top_triangle_gouraud(int x0, int y0, float i0, int x1, int y1, float i1, int x2, int y2, float i2, uint32_t color);
 
 vec3_t calculate_normal(vec3_t a, vec3_t b, vec3_t c);
 

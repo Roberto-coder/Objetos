@@ -86,24 +86,23 @@ void render_scene(float aspect_ratio, float fov_factor, vec3_t camera_position) 
         vec2_t projected_b = project(vertex_b, world_matrix, view_matrix, aspect_ratio, fov_factor);
         vec2_t projected_c = project(vertex_c, world_matrix, view_matrix, aspect_ratio, fov_factor);
 
-        uint32_t face_color = face.color;
-        if (apply_shading) {
-            float intensity_a = vertex_a.intensity;
-            float intensity_b = vertex_b.intensity;
-            float intensity_c = vertex_c.intensity;
-
-            float interpolated_intensity = (intensity_a + intensity_b + intensity_c) / 3.0f;
-            face_color = linear_interpolation(face.color, 0xFF000000, interpolated_intensity);
-        }
-
         if (!back_face_culling || is_face_visible(calculate_normal(vertex_a, vertex_b, vertex_c), camera_position, vertex_a)) {
             if (show_faces) {
-                draw_filled_triangle(
-                    projected_a.x, projected_a.y,
-                    projected_b.x, projected_b.y,
-                    projected_c.x, projected_c.y,
-                    face_color
-                );
+                if (apply_shading) {
+                    draw_filled_triangle_gouraud(
+                        projected_a.x, projected_a.y, vertex_a.intensity,
+                        projected_b.x, projected_b.y, vertex_b.intensity,
+                        projected_c.x, projected_c.y, vertex_c.intensity,
+                        face.color
+                    );
+                } else {
+                    draw_filled_triangle(
+                        projected_a.x, projected_a.y,
+                        projected_b.x, projected_b.y,
+                        projected_c.x, projected_c.y,
+                        face.color
+                    );
+                }
             }
 
             if (show_edges) {
@@ -137,25 +136,7 @@ uint32_t linear_interpolation(uint32_t start, uint32_t end, float t) {
 void calculate_vertex_intensities(vec3_t camera_pos) {
     for (int i = 0; i < array_length(mesh.vertices); i++) {
         vec3_t vertex = mesh.vertices[i];
-        vec3_t normal = {0, 0, 0};
-        int adjacent_faces_count = 0;
-
-        // Calcular la normal promedio de las caras adyacentes
-        for (int j = 0; j < array_length(mesh.faces); j++) {
-            face_t face = mesh.faces[j];
-            if (face.a - 1 == i || face.b - 1 == i || face.c - 1 == i) {
-                vec3_t vertex_a = mesh.vertices[face.a - 1];
-                vec3_t vertex_b = mesh.vertices[face.b - 1];
-                vec3_t vertex_c = mesh.vertices[face.c - 1];
-                vec3_t face_normal = calculate_normal(vertex_a, vertex_b, vertex_c);
-                normal = vec3_add(normal, face_normal);
-                adjacent_faces_count++;
-            }
-        }
-
-        if (adjacent_faces_count > 0) {
-            normal = vec3_div(normal, adjacent_faces_count);
-        }
+        vec3_t normal = calculate_vertex_normal(i);
 
         vec3_t lightDir = vec3_sub(light.direction, vertex);
         vec3_t viewDir = vec3_sub(camera_pos, vertex);

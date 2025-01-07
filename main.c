@@ -22,7 +22,7 @@ bool show_faces = true;
 bool show_edges = false;
 bool show_vertices = false;
 bool back_face_culling = false;
-bool apply_shading = false;
+bool apply_shading = true;
 
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 0};
