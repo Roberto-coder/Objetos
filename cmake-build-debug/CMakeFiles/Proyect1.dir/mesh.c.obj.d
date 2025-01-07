@@ -14,12 +14,12 @@ CMakeFiles/Proyect1.dir/mesh.c.obj: D:\7mo\CompGraph\Objetos\mesh.c \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
  D:\7mo\CompGraph\Objetos\array.h D:\7mo\CompGraph\Objetos\mesh.h \
- D:\7mo\CompGraph\Objetos\vector.h D:\7mo\CompGraph\Objetos\matrix.h \
- D:\7mo\CompGraph\Objetos\triangle.h \
+ D:\7mo\CompGraph\Objetos\vector.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
+ D:\7mo\CompGraph\Objetos\matrix.h D:\7mo\CompGraph\Objetos\triangle.h \
  D:\7mo\CompGraph\Objetos\display.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL.h \

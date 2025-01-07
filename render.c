@@ -51,7 +51,7 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
         vec3_t viewDir = vec3_sub(camera_pos, vertex_a);
 
         // Calculate the Phong illumination
-        uint32_t ambient = 0xFF1A1A1A; // Example ambient color (negro)
+        uint32_t ambient = 0xFF1A1A1A; // Example ambient color (negro no tan obscuro)
         uint32_t diffuse = 0xFF808080; // Example diffuse color (gris)
         uint32_t specular = 0xFFFFFFFF; // Example specular color (blanco)
         float shininess = 32.0;
@@ -95,14 +95,14 @@ void render_scene(float aspect_ratio, float fov_factor, vec3_t camera_position) 
                         projected_c.x, projected_c.y, vertex_c.intensity,
                         face.color
                     );
-                } else {
+                } /*else {
                     draw_filled_triangle(
                         projected_a.x, projected_a.y,
                         projected_b.x, projected_b.y,
                         projected_c.x, projected_c.y,
                         face.color
                     );
-                }
+                }*/
             }
 
             if (show_edges) {

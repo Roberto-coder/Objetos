@@ -9,6 +9,6 @@
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
 -- Found Threads: TRUE
 -- Found SDL2: mingw32;-mwindows;D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2main.a;D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/lib/libSDL2.dll.a
--- Configuring done (5.0s)
--- Generating done (0.0s)
+-- Configuring done (4.1s)
+-- Generating done (0.1s)
 -- Build files have been written to: D:/7mo/CompGraph/Objetos/cmake-build-debug

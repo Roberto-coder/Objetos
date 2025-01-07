@@ -1,9 +1,6 @@
 CMakeFiles/Proyect1.dir/render.c.obj: D:\7mo\CompGraph\Objetos\render.c \
  D:\7mo\CompGraph\Objetos\render.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
- D:\7mo\CompGraph\Objetos\vector.h D:\7mo\CompGraph\Objetos\matrix.h \
- D:\7mo\CompGraph\Objetos\mesh.h D:\7mo\CompGraph\Objetos\array.h \
- D:\7mo\CompGraph\Objetos\triangle.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
@@ -15,7 +12,8 @@ CMakeFiles/Proyect1.dir/render.c.obj: D:\7mo\CompGraph\Objetos\render.c \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
- D:\7mo\CompGraph\Objetos\display.h \
+ D:\7mo\CompGraph\Objetos\triangle.h D:\7mo\CompGraph\Objetos\vector.h \
+ D:\7mo\CompGraph\Objetos\matrix.h D:\7mo\CompGraph\Objetos\display.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_main.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_stdinc.h \
@@ -187,4 +185,6 @@ CMakeFiles/Proyect1.dir/render.c.obj: D:\7mo\CompGraph\Objetos\render.c \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_version.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_locale.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_misc.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/math.h \
+ D:\7mo\CompGraph\Objetos\mesh.h D:\7mo\CompGraph\Objetos\array.h \
  D:\7mo\CompGraph\Objetos\transform.h

@@ -413,6 +413,8 @@ CMakeFiles/Proyect1.dir/main.c.obj: D:/7mo/CompGraph/Objetos/main.c \
   D:/7mo/CompGraph/Objetos/vector.h
 
 CMakeFiles/Proyect1.dir/matrix.c.obj: D:/7mo/CompGraph/Objetos/matrix.c \
+  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
+  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
@@ -420,6 +422,8 @@ CMakeFiles/Proyect1.dir/matrix.c.obj: D:/7mo/CompGraph/Objetos/matrix.c \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/math.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
+  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   D:/7mo/CompGraph/Objetos/matrix.h \
   D:/7mo/CompGraph/Objetos/vector.h
@@ -796,6 +800,7 @@ CMakeFiles/Proyect1.dir/render.c.obj: D:/7mo/CompGraph/Objetos/render.c \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/intrin.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/limits.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
+  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/math.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/process.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sdkddkver.h \
@@ -1389,9 +1394,12 @@ CMakeFiles/Proyect1.dir/vector.c.obj: D:/7mo/CompGraph/Objetos/vector.c \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/winapifamily.h \
   D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/winsdkver.h \
+  D:/7mo/CompGraph/Objetos/array.h \
   D:/7mo/CompGraph/Objetos/display.h \
   D:/7mo/CompGraph/Objetos/matrix.h \
+  D:/7mo/CompGraph/Objetos/mesh.h \
   D:/7mo/CompGraph/Objetos/transform.h \
+  D:/7mo/CompGraph/Objetos/triangle.h \
   D:/7mo/CompGraph/Objetos/vector.h
 
 

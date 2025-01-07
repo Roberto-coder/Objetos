@@ -59,13 +59,13 @@ void setup(void) {
     is_running = true;
     world_matrix = mat4_identity();
     view_matrix = mat4_identity();
-    projection_matrix = mat4_make_perspective(M_PI / 3, aspect_ratio, 0.1f, 100.0f);
+    projection_matrix = mat4_make_perspective(720.0, aspect_ratio, 0.1f, 100.0f);
 
     // Inicializar la posición del objeto en el eje -z
     object_translation.z = -7.0f;
 
     // Cargar datos del archivo .obj
-    load_obj_file_data("../Objetos/cubo3.obj");
+    load_obj_file_data("../Objetos/dona.obj");
 }
 
 void process_input(void) {
@@ -109,7 +109,7 @@ void process_input(void) {
 
 void update(void) {
     // Aplicar rotaciones con incrementos menores
-    rotate_object(&object_rotation, 0.001, 0.001, 0.001);
+    rotate_object(&object_rotation, 0.01, 0.01, 0.01);
 
     // Crear matriz de transformación
     world_matrix = mat4_identity();

@@ -7,17 +7,18 @@ CMakeFiles/Proyect1.dir/vector.c.obj: D:\7mo\CompGraph\Objetos\vector.c \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
- D:\7mo\CompGraph\Objetos\vector.h D:\7mo\CompGraph\Objetos\matrix.h \
+ D:\7mo\CompGraph\Objetos\vector.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
+ D:\7mo\CompGraph\Objetos\matrix.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
  D:\7mo\CompGraph\Objetos\display.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_main.h \
@@ -189,4 +190,5 @@ CMakeFiles/Proyect1.dir/vector.c.obj: D:\7mo\CompGraph\Objetos\vector.c \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_version.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_locale.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_misc.h \
- D:\7mo\CompGraph\Objetos\transform.h
+ D:\7mo\CompGraph\Objetos\mesh.h D:\7mo\CompGraph\Objetos\array.h \
+ D:\7mo\CompGraph\Objetos\triangle.h D:\7mo\CompGraph\Objetos\transform.h

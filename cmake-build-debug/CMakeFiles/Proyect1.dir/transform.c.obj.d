@@ -1,6 +1,17 @@
 CMakeFiles/Proyect1.dir/transform.c.obj: \
  D:\7mo\CompGraph\Objetos\transform.c \
  D:\7mo\CompGraph\Objetos\transform.h D:\7mo\CompGraph\Objetos\vector.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
+ D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
  D:\7mo\CompGraph\Objetos\matrix.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_stdinc.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL_config.h \
@@ -10,20 +21,9 @@ CMakeFiles/Proyect1.dir/transform.c.obj: \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/winsdkver.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/winapifamily.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sdkddkver.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdarg.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdarg.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/_mingw_stdarg.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
- D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
  D:\7mo\CompGraph\Objetos\display.h \
  D:/Archivos\ del\ programa/CLion\ 2024.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
  D:/7mo/CompGraph/SDL2-2.30.7-mingw/SDL2-devel-2.30.7-mingw/SDL2-2.30.7/x86_64-w64-mingw32/include/SDL2/SDL.h \

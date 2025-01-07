@@ -120,7 +120,7 @@ void draw_flat_bottom_triangle_gouraud(int x0, int y0, float i0, int x1, int y1,
     float cur_i2 = i0;
 
     for (int y = y0; y <= y1; y++) {
-        draw_line_gouraud((int)cur_x1, y, cur_i1, (int)cur_x2, y, cur_i2, color);
+        draw_line((int)cur_x1, y, (int)cur_x2, y, color);
         cur_x1 += inv_slope_1;
         cur_x2 += inv_slope_2;
         cur_i1 += inv_intensity_1;
@@ -140,29 +140,10 @@ void draw_flat_top_triangle_gouraud(int x0, int y0, float i0, int x1, int y1, fl
     float cur_i2 = i2;
 
     for (int y = y2; y >= y0; y--) {
-        draw_line_gouraud((int)cur_x1, y, cur_i1, (int)cur_x2, y, cur_i2, color);
+        draw_line((int)cur_x1, y, (int)cur_x2, y, color);
         cur_x1 -= inv_slope_1;
         cur_x2 -= inv_slope_2;
         cur_i1 -= inv_intensity_1;
         cur_i2 -= inv_intensity_2;
-    }
-}
-
-void draw_line_gouraud(int x0, int y0, float i0, int x1, int y1, float i1, uint32_t color) {
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
-    int sx = x0 < x1 ? 1 : -1;
-    int sy = y0 < y1 ? 1 : -1;
-    int err = dx - dy;
-
-    while (true) {
-        float t = (dx > dy) ? (float)(x0 - x1) / dx : (float)(y0 - y1) / dy;
-        uint32_t interpolated_color = linear_interpolation(color, 0xFF000000, i0 + t * (i1 - i0));
-        draw_pixel(x0, y0, interpolated_color);
-
-        if (x0 == x1 && y0 == y1) break;
-        int e2 = 2 * err;
-        if (e2 > -dy) { err -= dy; x0 += sx; }
-        if (e2 < dx) { err += dx; y0 += sy; }
     }
 }
