@@ -132,11 +132,11 @@ uint32_t linear_interpolation(uint32_t start, uint32_t end, float t) {
     return a | r | g | b;
 }
 
-// Calcular la intensidad en cada vértice usando el modelo de iluminación de Phong
+
 void calculate_vertex_intensities(vec3_t camera_pos) {
     for (int i = 0; i < array_length(mesh.vertices); i++) {
         vec3_t vertex = mesh.vertices[i];
-        vec3_t normal = calculate_vertex_normal(i);
+        vec3_t normal = calculate_vertex_normal(i); // Calculate the average normal for the vertex
 
         vec3_t lightDir = vec3_sub(light.direction, vertex);
         vec3_t viewDir = vec3_sub(camera_pos, vertex);
@@ -150,6 +150,7 @@ void calculate_vertex_intensities(vec3_t camera_pos) {
         mesh.vertices[i].intensity = intensity;
     }
 }
+
 
 uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint32_t ambient, uint32_t diffuse, uint32_t specular, float shininess) {
     // Normalizar los vectores

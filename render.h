@@ -36,4 +36,5 @@ uint32_t linear_interpolation(uint32_t start, uint32_t end, float t);
 void calculate_vertex_intensities(vec3_t camera_pos);
 uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint32_t ambient, uint32_t diffuse, uint32_t specular, float shininess);
 
+
 #endif // RENDER_H
