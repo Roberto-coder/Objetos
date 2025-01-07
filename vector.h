@@ -74,4 +74,6 @@ vec3_t vec3_reflect(vec3_t l, vec3_t n);
 vec3_t calculate_vertex_normal(int vertex_index);
 //vec4_t mat4_mul_vec4(mat4_t m, vec4_t v);
 
+vec3_t vec3_negate(vec3_t v);
+
 #endif //INC_3DRENDERER_VECTOR_H

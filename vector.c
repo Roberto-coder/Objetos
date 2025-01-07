@@ -243,3 +243,11 @@ vec3_t calculate_vertex_normal(int vertex_index) {
     return normal_sum;
 }
 
+vec3_t vec3_negate(vec3_t v) {
+    vec3_t result;
+    result.x = -v.x;
+    result.y = -v.y;
+    result.z = -v.z;
+    return result;
+}
+

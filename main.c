@@ -21,8 +21,8 @@ int previous_frame_time = 0;
 bool show_faces = true;
 bool show_edges = false;
 bool show_vertices = false;
-bool back_face_culling = true;
-bool apply_shading = true;
+bool back_face_culling = false;
+bool apply_shading = false;
 
 vec3_t object_rotation = {0, 0, 0};
 vec3_t object_translation = {0, 0, 0};
@@ -65,7 +65,7 @@ void setup(void) {
     object_translation.z = -7.0f;
 
     // Cargar datos del archivo .obj
-    load_obj_file_data("../Objetos/dona.obj");
+    load_obj_file_data("../Objetos/cubo3.obj");
 }
 
 void process_input(void) {

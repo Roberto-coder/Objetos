@@ -13,7 +13,7 @@ const uint32_t COLOR_VERTICES = 0xFF0000FF; // Blue for vertices
 
 // Define the light source
 light_t light = {
-    .direction = { 0, 0, -1 },
+    .direction = { 0, 0, -10 },
     .color = { 1.0, 1.0, 1.0 }, // Luz blanca
     .intensity = 1.0
 };
@@ -51,9 +51,9 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
         vec3_t viewDir = vec3_sub(camera_pos, vertex_a);
 
         // Calculate the Phong illumination
-        uint32_t ambient = 0xFF1A1A1A; // Example ambient color
-        uint32_t diffuse = 0xFF808080; // Example diffuse color
-        uint32_t specular = 0xFFFFFFFF; // Example specular color
+        uint32_t ambient = 0xFF1A1A1A; // Example ambient color (negro)
+        uint32_t diffuse = 0xFF808080; // Example diffuse color (gris)
+        uint32_t specular = 0xFFFFFFFF; // Example specular color (blanco)
         float shininess = 32.0;
         uint32_t phongColor = phongIllumination(normal, lightDir, viewDir, ambient, diffuse, specular, shininess);
 
@@ -72,10 +72,9 @@ void calculate_visible_faces(vec3_t camera_pos, float fov, bool back_face_cullin
 }
 
 void render_scene(float aspect_ratio, float fov_factor, vec3_t camera_position) {
-    //calculate_visible_faces(camera_position, fov_factor, back_face_culling);
+    calculate_vertex_intensities(camera_position);
     face_t* faces_to_render = visible_faces;
 
-    // Draw faces
     for (int i = 0; i < array_length(faces_to_render); i++) {
         face_t face = faces_to_render[i];
 
@@ -89,20 +88,14 @@ void render_scene(float aspect_ratio, float fov_factor, vec3_t camera_position) 
 
         uint32_t face_color = face.color;
         if (apply_shading) {
-            // Interpolate the intensity values of the vertices
             float intensity_a = vertex_a.intensity;
             float intensity_b = vertex_b.intensity;
             float intensity_c = vertex_c.intensity;
 
-            // Calculate the interpolated intensity for the face
-            float t = 0.5f; // Example interpolation factor
             float interpolated_intensity = (intensity_a + intensity_b + intensity_c) / 3.0f;
-
-            // Apply the interpolated intensity to the face color
-            face_color = linear_interpolation(face.color, 0xFF000000, interpolated_intensity * t);
+            face_color = linear_interpolation(face.color, 0xFF000000, interpolated_intensity);
         }
 
-        // Check if the face is visible based on back-face culling
         if (!back_face_culling || is_face_visible(calculate_normal(vertex_a, vertex_b, vertex_c), camera_position, vertex_a)) {
             if (show_faces) {
                 draw_filled_triangle(
@@ -140,32 +133,40 @@ uint32_t linear_interpolation(uint32_t start, uint32_t end, float t) {
     return a | r | g | b;
 }
 
-// Interpolación para coordenadas baricéntricas (comentario)
-/*
-uint32_t barycentric_interpolation(uint32_t i1, uint32_t i2, uint32_t i3, float w1, float w2, float w3) {
-    uint32_t a = (i1 & 0xFF000000) * w1 + (i2 & 0xFF000000) * w2 + (i3 & 0xFF000000) * w3;
-    uint32_t r = (i1 & 0x00FF0000) * w1 + (i2 & 0x00FF0000) * w2 + (i3 & 0x00FF0000) * w3;
-    uint32_t g = (i1 & 0x0000FF00) * w1 + (i2 & 0x0000FF00) * w2 + (i3 & 0x0000FF00) * w3;
-    uint32_t b = (i1 & 0x000000FF) * w1 + (i2 & 0x000000FF) * w2 + (i3 & 0x000000FF) * w3;
-    return a | r | g | b;
-}
-*/
-
 // Calcular la intensidad en cada vértice usando el modelo de iluminación de Phong
 void calculate_vertex_intensities(vec3_t camera_pos) {
     for (int i = 0; i < array_length(mesh.vertices); i++) {
         vec3_t vertex = mesh.vertices[i];
-        vec3_t normal = calculate_vertex_normal(i + 1); // Los índices de los vértices comienzan en 1
+        vec3_t normal = {0, 0, 0};
+        int adjacent_faces_count = 0;
+
+        // Calcular la normal promedio de las caras adyacentes
+        for (int j = 0; j < array_length(mesh.faces); j++) {
+            face_t face = mesh.faces[j];
+            if (face.a - 1 == i || face.b - 1 == i || face.c - 1 == i) {
+                vec3_t vertex_a = mesh.vertices[face.a - 1];
+                vec3_t vertex_b = mesh.vertices[face.b - 1];
+                vec3_t vertex_c = mesh.vertices[face.c - 1];
+                vec3_t face_normal = calculate_normal(vertex_a, vertex_b, vertex_c);
+                normal = vec3_add(normal, face_normal);
+                adjacent_faces_count++;
+            }
+        }
+
+        if (adjacent_faces_count > 0) {
+            normal = vec3_div(normal, adjacent_faces_count);
+        }
+
         vec3_t lightDir = vec3_sub(light.direction, vertex);
         vec3_t viewDir = vec3_sub(camera_pos, vertex);
 
-        uint32_t ambient = 0xFF1A1A1A; // Ejemplo de color ambiente (negro)
-        uint32_t diffuse = 0xFF808080; // Ejemplo de color difuso (gris obscuro)
-        uint32_t specular = 0xFFFFFFFF; // Ejemplo de color especular (blanco)
+        uint32_t ambient = 0xFF1A1A1A;
+        uint32_t diffuse = 0xFF808080;
+        uint32_t specular = 0xFFFFFFFF;
         float shininess = 32.0;
 
         uint32_t intensity = phongIllumination(normal, lightDir, viewDir, ambient, diffuse, specular, shininess);
-        mesh.vertices[i].intensity = intensity; // Asumimos que `vec3_t` tiene un campo `intensity`
+        mesh.vertices[i].intensity = intensity;
     }
 }
 
@@ -174,42 +175,40 @@ uint32_t phongIllumination(vec3_t normal, vec3_t lightDir, vec3_t viewDir, uint3
     vec3_normalize(&normal);
     vec3_normalize(&lightDir);
     vec3_normalize(&viewDir);
+    // Calcular el término difuso
+    float diff = vec3_dot(normal, lightDir);
+    if (diff < 0.0f) {
+        diff = 0.0f; // Asegurarse de que no haya contribución negativa
+    }
 
-    // Iluminación ambiente
-    uint32_t ambientComponent = ambient;
-
-    // Iluminación difusa
-    float diff = fmax(vec3_dot(normal, lightDir), 0.0);
-    uint32_t diffuseComponent = light_apply_intensity(diffuse, diff);
-
-    // Iluminación especular
+    // Calcular el término especular
     vec3_t reflectDir = vec3_reflect(lightDir, normal);
-    float spec = pow(fmax(vec3_dot(viewDir, reflectDir), 0.0), shininess);
-    uint32_t specularComponent = light_apply_intensity(specular, spec);
+    float spec = vec3_dot(reflectDir, viewDir);
+    if (spec < 0.0f) {
+        spec = 0.0f; // Asegurarse de que no haya contribución negativa
+    }
+    spec = powf(spec, shininess);
 
-    // Sumar las componentes
-    uint32_t result = ambientComponent + diffuseComponent + specularComponent;
+    // Separar los componentes RGB de los colores de entrada
+    uint8_t ambientR = (ambient >> 16) & 0xFF;
+    uint8_t ambientG = (ambient >> 8) & 0xFF;
+    uint8_t ambientB = ambient & 0xFF;
 
-    // Asegurarse de que el resultado no se desborde
-    uint32_t a = (result & 0xFF000000);
-    uint32_t r = fmin((result & 0x00FF0000), 0x00FF0000);
-    uint32_t g = fmin((result & 0x0000FF00), 0x0000FF00);
-    uint32_t b = fmin((result & 0x000000FF), 0x000000FF);
+    uint8_t diffuseR = (diffuse >> 16) & 0xFF;
+    uint8_t diffuseG = (diffuse >> 8) & 0xFF;
+    uint8_t diffuseB = diffuse & 0xFF;
 
-    return a | r | g | b;
-    //return result;
+    uint8_t specularR = (specular >> 16) & 0xFF;
+    uint8_t specularG = (specular >> 8) & 0xFF;
+    uint8_t specularB = specular & 0xFF;
+
+    // Combinar los componentes utilizando los términos de iluminación
+    uint8_t finalR = (uint8_t)fminf(ambientR + diff * diffuseR + spec * specularR, 255.0f);
+    uint8_t finalG = (uint8_t)fminf(ambientG + diff * diffuseG + spec * specularG, 255.0f);
+    uint8_t finalB = (uint8_t)fminf(ambientB + diff * diffuseB + spec * specularB, 255.0f);
+
+    // Recombinar los componentes RGB en un único valor de 32 bits
+    return (finalR << 16) | (finalG << 8) | finalB;
 }
 
-// Function to apply light intensity to the original color
-uint32_t light_apply_intensity(uint32_t original_color, float percentage_factor) {
-    if (percentage_factor < 0) percentage_factor = 0;
-    if (percentage_factor > 1) percentage_factor = 1;
 
-    uint32_t a = (original_color & 0xFF000000);
-    uint32_t r = ((original_color & 0x00FF0000) >> 16) * percentage_factor;
-    uint32_t g = ((original_color & 0x0000FF00) >> 8) * percentage_factor;
-    uint32_t b = (original_color & 0x000000FF) * percentage_factor;
-
-    uint32_t new_color = a | ((uint32_t)r << 16) | ((uint32_t)g << 8) | (uint32_t)b;
-    return new_color;
-}
